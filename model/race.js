@@ -2,8 +2,9 @@
 
 const adjectives = require('../lib/adjectives');
 const nouns = require('../lib/nouns');
-const random = require('lodash/random');
 const sample = require('lodash/sample');
+
+const horseMovement = [1, 1, 1, 2, 2, 3, 4];
 
 module.exports = function initRaceModel(app) {
 	const {Schema} = app;
@@ -140,7 +141,7 @@ module.exports = function initRaceModel(app) {
 		}, 1);
 		this.horses.forEach(horse => {
 			if (horse.distanceFromFinish > 0) {
-				horse.distanceFromFinish -= random(1, 3);
+				horse.distanceFromFinish -= sample(horseMovement);
 			}
 			if (!horse.hasFinished && horse.distanceFromFinish <= 0) {
 				horse.finishingPosition = nextFinishingPosition;
