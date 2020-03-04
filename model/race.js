@@ -93,13 +93,15 @@ module.exports = function initRaceModel(app) {
 				return [
 					markdownSectionBlock(`*Yeehaw!*\nPlease place your bets, the race will commence in 30 seconds…`),
 					{type: 'divider'},
-					...this.horses.map(horse => horse.renderForSlack(true))
+					...this.horses.map(horse => horse.renderForSlack(true)),
+					markdownContextBlock(`*Race organiser:* <@${this.userId}>`)
 				];
 			case 'racing':
 				return [
 					markdownSectionBlock(`*Yeehaw!*\nThe race is on!`),
 					{type: 'divider'},
-					...this.horses.map(horse => horse.renderForSlack())
+					...this.horses.map(horse => horse.renderForSlack()),
+					markdownContextBlock(`*Race organiser:* <@${this.userId}>`)
 				];
 			case 'finished':
 				const winningHorses = this.horses.filter(horse => horse.finishingPosition === 1);
@@ -118,7 +120,8 @@ module.exports = function initRaceModel(app) {
 					{type: 'divider'},
 					...this.horses.map(horse => horse.renderForSlack()),
 					{type: 'divider'},
-					markdownSectionBlock(`Well done ${winningBetterNames.join(', ')} for betting on *_${winningHorseNames.join(' or ')}_*!`)
+					markdownSectionBlock(`Well done ${winningBetterNames.join(', ')} for betting on *_${winningHorseNames.join(' or ')}_*!`),
+					markdownContextBlock(`*Race organiser:* <@${this.userId}>`)
 				];
 		}
 	});
@@ -233,6 +236,18 @@ module.exports = function initRaceModel(app) {
 			},
 			accessory
 		};
+	}
+
+	function markdownContextBlock(text) {
+		return {
+			type: 'context',
+			elements: [
+				{
+					type: 'mrkdwn',
+					text
+				}
+			]
+		}
 	}
 
 	return raceSchema;
