@@ -21,7 +21,11 @@
   },
   "dependencies": {
     "@rowanmanning/app": "^1.0.0-alpha.10",
-    "dotenv": "^8.2.0"
+    "@slack/web-api": "^5.8.0",
+    "dotenv": "^8.2.0",
+    "lodash": "^4.17.15",
+    "request": "^2.88.2",
+    "request-promise-native": "^1.0.8"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"

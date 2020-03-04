@@ -8,7 +8,6 @@ module.exports = function defaultLayout(context, content) {
 			<head>
 				<meta charset="utf-8" />
 				<title>${context.title}</title>
-				<link rel="stylesheet" href="/site.css" />
 			</head>
 			<body>
 				${content}

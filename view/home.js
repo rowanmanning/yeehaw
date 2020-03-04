@@ -7,5 +7,6 @@ module.exports = function homeView(context) {
 	return layout(context, html`
 		<h1>${context.title}</h1>
 		<p>Under construction.</p>
+		<a href="/auth">Add to Slack</a>
 	`);
 };
