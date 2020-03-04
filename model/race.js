@@ -4,7 +4,7 @@ const adjectives = require('../lib/adjectives');
 const nouns = require('../lib/nouns');
 const sample = require('lodash/sample');
 
-const horseMovement = [1, 1, 1, 2, 2, 3, 4];
+const horseMovement = [1, 1, 2, 2, 3, 4];
 
 module.exports = function initRaceModel(app) {
 	const {Schema} = app;
