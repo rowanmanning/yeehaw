@@ -78,24 +78,6 @@ module.exports = function initSlackInteractController(app) {
 			slackChannelId: payload.channel.id,
 			slackUserId: payload.user.id
 		});
-
-		// const existingBet = await Bet.findOne({
-		// 	slackUserId: payload.user.id,
-		// 	raceId: race._id
-		// });
-		// if (existingBet) {
-		// 	existingBet.horseId = action.value;
-		// 	console.log('Slack user', payload.user.id, 'changed bet to', horse.name);
-		// 	await existingBet.save();
-		// } else {
-		// 	const newBet = new Bet({
-		// 		slackUserId: payload.user.id,
-		// 		raceId: race._id,
-		// 		horseId: action.value
-		// 	});
-		// 	console.log('Slack user', payload.user.id, 'bet on', horse.name);
-		// 	await newBet.save();
-		// }
 	}
 
 	async function handleError(error, request, response, next) {
