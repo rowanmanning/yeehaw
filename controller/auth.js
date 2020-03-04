@@ -7,6 +7,7 @@ module.exports = function initAuthController(app) {
 	const {Bot} = app.models;
 	const {baseUrl, slackClientId, slackClientSecret} = app.options;
 	const slackOauthScopes = [
+		'bot',
 		'chat:write:bot',
 		'commands'
 	];
