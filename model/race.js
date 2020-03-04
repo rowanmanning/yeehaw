@@ -91,7 +91,7 @@ module.exports = function initRaceModel(app) {
 		switch (this.phase) {
 			case 'betting':
 				return [
-					markdownSectionBlock(`*Yeehaw!*\nPlease place your bets, the race will commence in 30 seconds…`),
+					markdownSectionBlock(`Please place your bets! You can bet on one horse and change the bet until the race commences (in 30 seconds)`),
 					{type: 'divider'},
 					...this.horses.map(horse => horse.renderForSlack(true)),
 					{type: 'divider'},
@@ -99,7 +99,7 @@ module.exports = function initRaceModel(app) {
 				];
 			case 'racing':
 				return [
-					markdownSectionBlock(`*Yeehaw!*\nThe race is on!`),
+					markdownSectionBlock(`The race is on! Shout encouragement at your horse!`),
 					{type: 'divider'},
 					...this.horses.map(horse => horse.renderForSlack()),
 					{type: 'divider'},
@@ -118,11 +118,11 @@ module.exports = function initRaceModel(app) {
 						['nobody']
 				);
 				return [
-					markdownSectionBlock(`*Yeehaw!*\nThe race is over!`),
+					markdownSectionBlock(`This race is over! :trophy: Congratulations ${winningHorseNames.join(', ')}`),
 					{type: 'divider'},
 					...this.horses.map(horse => horse.renderForSlack()),
 					{type: 'divider'},
-					markdownSectionBlock(`Well done ${winningBetterNames.join(', ')} for betting on *_${winningHorseNames.join(' or ')}_*!`),
+					markdownSectionBlock(`Well done ${winningBetterNames.join(', ')} for betting on the right horse.`),
 					markdownContextBlock(`*Race organiser:* <@${this.userId}>`)
 				];
 		}
