@@ -100,7 +100,7 @@ module.exports = function initRaceModel(app) {
 				];
 			case 'racing':
 				return [
-					markdownSectionBlock(`The race is on! Shout encouragement at your horse!`),
+					markdownSectionBlock(`The race is on!\nDon't forget to cheer on your horse!`),
 					{type: 'divider'},
 					...this.horses.map(horse => horse.renderForSlack()),
 					{type: 'divider'},
@@ -119,7 +119,7 @@ module.exports = function initRaceModel(app) {
 						['nobody']
 				);
 				return [
-					markdownSectionBlock(`This race is over! :trophy: Congratulations ${winningHorseNames.join(', ')}`),
+					markdownSectionBlock(`This race is over!\nCongratulations *_${winningHorseNames.join(', ')}_* :trophy:`),
 					{type: 'divider'},
 					...this.horses.map(horse => horse.renderForSlack()),
 					{type: 'divider'},
