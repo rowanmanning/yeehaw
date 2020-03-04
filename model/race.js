@@ -94,6 +94,7 @@ module.exports = function initRaceModel(app) {
 					markdownSectionBlock(`*Yeehaw!*\nPlease place your bets, the race will commence in 30 seconds…`),
 					{type: 'divider'},
 					...this.horses.map(horse => horse.renderForSlack(true)),
+					{type: 'divider'},
 					markdownContextBlock(`*Race organiser:* <@${this.userId}>`)
 				];
 			case 'racing':
@@ -101,6 +102,7 @@ module.exports = function initRaceModel(app) {
 					markdownSectionBlock(`*Yeehaw!*\nThe race is on!`),
 					{type: 'divider'},
 					...this.horses.map(horse => horse.renderForSlack()),
+					{type: 'divider'},
 					markdownContextBlock(`*Race organiser:* <@${this.userId}>`)
 				];
 			case 'finished':
