@@ -54,7 +54,7 @@ module.exports = function initRaceController(app) {
 	async function getEmoji(request, response, next) {
 		try {
 			if (typeof request.body.text === 'string') {
-				const emoji = extractEmoji(request.body.text);
+				const emoji = extractEmoji(request.body.text).slice(0, 5);
 				response.locals.emoji = emoji.length ? emoji : undefined;
 			}
 			next();
