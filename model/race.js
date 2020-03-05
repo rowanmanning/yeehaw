@@ -5,6 +5,7 @@ const nouns = require('../lib/nouns');
 const sample = require('lodash/sample');
 
 const horseMovement = [1, 1, 2, 2, 3, 4];
+const defaultEmoji = ':horse_racing:';
 
 module.exports = function initRaceModel(app) {
 	const {Schema} = app;
@@ -20,11 +21,7 @@ module.exports = function initRaceModel(app) {
 			default: generateHorseName
 		},
 		emoji: {
-			type: String,
-			required: true,
-			default: function() {
-				return sample(this.parent().emoji)
-			}
+			type: String
 		},
 		distanceFromFinish: {
 			type: Number,
@@ -57,8 +54,7 @@ module.exports = function initRaceModel(app) {
 		},
 		emoji: {
 			type: [String],
-			required: true,
-			default: [':horse_racing:']
+			default: [defaultEmoji]
 		},
 		horses: {
 			type: [horseSchema],
@@ -163,6 +159,12 @@ module.exports = function initRaceModel(app) {
 	});
 
 	raceSchema.method('runOnSlack', async function(slackWebClient) {
+
+		// Set horse emoji
+		this.horses.forEach((horse, index) => {
+			horse.emoji = this.emoji[index] || sample(this.emoji) || defaultEmoji;
+		});
+		this.set('emoji', undefined, {strict: false});
 
 		// Send the initial message, saving the message timestamp
 		const slackMessage = await slackWebClient.chat.postMessage({
