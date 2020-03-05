@@ -1,6 +1,6 @@
 'use strict';
 
-const App = require('./lib/app');
+const App = require('@rowanmanning/app');
 const dotenv = require('dotenv');
 
 dotenv.config();
