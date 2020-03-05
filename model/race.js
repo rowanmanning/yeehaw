@@ -19,6 +19,13 @@ module.exports = function initRaceModel(app) {
 			required: true,
 			default: generateHorseName
 		},
+		emoji: {
+			type: String,
+			required: true,
+			default: function() {
+				return sample(this.parent().emoji)
+			}
+		},
 		distanceFromFinish: {
 			type: Number,
 			default: 40
@@ -47,6 +54,11 @@ module.exports = function initRaceModel(app) {
 		},
 		messageTimestamp: {
 			type: String
+		},
+		emoji: {
+			type: [String],
+			required: true,
+			default: [':horse_racing:']
 		},
 		horses: {
 			type: [horseSchema],
@@ -81,10 +93,10 @@ module.exports = function initRaceModel(app) {
 				case 2: trophy = 'second_place_medal'; break;
 				case 3: trophy = 'third_place_medal'; break;
 			}
-			return markdownSectionBlock(`:${trophy}::horse_racing: _${this.name}_`);
+			return markdownSectionBlock(`:${trophy}${this.emoji} _${this.name}_`);
 		} else {
 			const spacing = Array(this.distanceFromFinish).fill(' ').join('');
-			return markdownSectionBlock(`:checkered_flag:${spacing}:horse_racing: _${this.name}_`, accessory);
+			return markdownSectionBlock(`:checkered_flag:${spacing}${this.emoji} _${this.name}_`, accessory);
 		}
 	});
 

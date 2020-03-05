@@ -1,5 +1,6 @@
 'use strict';
 
+const extractEmoji = require('../../lib/extract-emoji');
 const {post} = require('request-promise-native');
 const SlackWebApiClient = require('@slack/web-api').WebClient;
 
@@ -10,6 +11,7 @@ module.exports = function initRaceController(app) {
 	router.post('/slash/race', [
 		validateRequestBody,
 		getBot,
+		getEmoji,
 		startRace,
 		handleError
 	]);
@@ -49,6 +51,19 @@ module.exports = function initRaceController(app) {
 		}
 	}
 
+	async function getEmoji(request, response, next) {
+		try {
+			if (typeof request.body.text === 'string') {
+				const emoji = extractEmoji(request.body.text);
+				response.locals.emoji = emoji.length ? emoji : undefined;
+			}
+			next();
+		} catch (error) {
+			error.sendImmediate = true;
+			next(error);
+		}
+	}
+
 	async function startRace(request, response, next) {
 		try {
 			response.send('Your race will begin soon! Yeehaw! :face_with_cowboy_hat:');
@@ -57,7 +72,8 @@ module.exports = function initRaceController(app) {
 			const race = new Race({
 				teamId: request.body.team_id,
 				channelId: request.body.channel_id,
-				userId: request.body.user_id
+				userId: request.body.user_id,
+				emoji: response.locals.emoji
 			});
 			await race.save();
 
