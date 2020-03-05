@@ -93,7 +93,7 @@ module.exports = function initRaceModel(app) {
 				case 2: trophy = 'second_place_medal'; break;
 				case 3: trophy = 'third_place_medal'; break;
 			}
-			return markdownSectionBlock(`:${trophy}${this.emoji} _${this.name}_`);
+			return markdownSectionBlock(`:${trophy}:${this.emoji} _${this.name}_`);
 		} else {
 			const spacing = Array(this.distanceFromFinish).fill(' ').join('');
 			return markdownSectionBlock(`:checkered_flag:${spacing}${this.emoji} _${this.name}_`, accessory);
