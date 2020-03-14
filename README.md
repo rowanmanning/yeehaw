@@ -26,6 +26,24 @@ This application requires the following to run:
 
 I'll write this section soon, promise!
 
+### Local development
+
+  1. Ensure that you have the [required](#requirements) versions of Node.js and MongoDB installed and ready to use
+
+  2. Create an `.env` file to store local configurations in:
+
+     ```sh
+     make env
+     ```
+
+  3. Do some other things that Rowan hasn't documented yet :grimacing:
+
+  4. Start the application:
+
+     ```sh
+     npm run start-dev
+     ```
+
 ### Slack App Setup
 
 A little work needs doing to set up the bot in Slack.
