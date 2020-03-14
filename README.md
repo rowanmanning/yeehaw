@@ -5,7 +5,28 @@ Stage exciting horse races from the comfort of any public Slack channel, and bet
 
 <a href="https://slack-yeehaw.herokuapp.com/auth"><img alt="Add to Slack" height="40" width="139" src="https://platform.slack-edge.com/img/add_to_slack.png" srcset="https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x"/></a>
 
-## Slack App Setup
+
+## Table of Contents
+
+  * [Requirements](#requirements)
+  * [Setup](#setup)
+  * [Contributing](#contributing)
+  * [License](#license)
+
+
+## Requirements
+
+This application requires the following to run:
+
+  * [Node.js](https://nodejs.org/) 12+
+  * [MongoDB](https://www.mongodb.com/) 4+
+
+
+## Setup
+
+I'll write this section soon, promise!
+
+### Slack App Setup
 
 A little work needs doing to set up the bot in Slack.
 
@@ -33,3 +54,19 @@ Navigate to your [Slack Apps page](https://api.slack.com/apps).
         `Redirect URLs` = `<BASE_URL>/auth/redirect`
 
         `Scopes ` = ? (TODO)
+
+
+## Contributing
+
+To contribute to this application, clone this repo locally and commit your code on a separate branch. Please write unit tests for your code, and run the linter before opening a pull-request:
+
+```sh
+make test    # run all tests
+make verify  # run all linters
+```
+
+
+## License
+
+Licensed under the [MIT](LICENSE) license.<br/>
+Copyright &copy; 2020, Rowan Manning
