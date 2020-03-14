@@ -29,7 +29,9 @@ module.exports = function initAuthController(app) {
 				json: true
 			});
 			if (!responseBody.ok) {
-				throw new Error(`There was an error authenticating with Slack: ${responseBody.error}`);
+				throw new Error(
+					`There was an error authenticating with Slack: ${responseBody.error}`
+				);
 			}
 			const bot = new Bot({
 				slackAuthScope: responseBody.scope,
@@ -44,7 +46,6 @@ module.exports = function initAuthController(app) {
 		} catch (error) {
 			next(error);
 		}
-
 	});
 
 };

@@ -3,7 +3,7 @@
 module.exports = function initHomeController(app) {
 	const {router} = app;
 
-	router.get('/', async (request, response) => {
+	router.get('/', (request, response) => {
 		response.render('home', {
 			title: app.name
 		});

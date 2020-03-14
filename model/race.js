@@ -78,62 +78,62 @@ module.exports = function initRaceModel(app) {
 					text: 'Place Bet',
 					emoji: true
 				},
-				action_id: 'bet',
+				action_id: 'bet', // eslint-disable-line camelcase
 				value: this._id
 			};
 		}
 		if (this.hasFinished) {
-			let trophy = 'blank';
+			let trophy;
 			switch (this.finishingPosition) {
 				case 1: trophy = 'first_place_medal'; break;
 				case 2: trophy = 'second_place_medal'; break;
 				case 3: trophy = 'third_place_medal'; break;
+				default: trophy = 'blank'; break;
 			}
 			return markdownSectionBlock(`:${trophy}:${this.emoji} _${this.name}_`);
-		} else {
-			const spacing = Array(this.distanceFromFinish).fill(' ').join('');
-			return markdownSectionBlock(`:checkered_flag:${spacing}${this.emoji} _${this.name}_`, accessory);
 		}
+		const spacing = Array(this.distanceFromFinish).fill(' ').join('');
+		return markdownSectionBlock(`:checkered_flag:${spacing}${this.emoji} _${this.name}_`, accessory);
+
 	});
 
 	raceSchema.method('renderForSlack', async function() {
-		switch (this.phase) {
-			case 'betting':
-				return [
-					markdownSectionBlock(`Please place your bets! You can bet on one horse and change the bet until the race commences (in 30 seconds)`),
-					{type: 'divider'},
-					...this.horses.map(horse => horse.renderForSlack(true)),
-					{type: 'divider'},
-					markdownContextBlock(`*Race organiser:* <@${this.userId}>`)
-				];
-			case 'racing':
-				return [
-					markdownSectionBlock(`The race is on!\nDon't forget to cheer on your horse!`),
-					{type: 'divider'},
-					...this.horses.map(horse => horse.renderForSlack()),
-					{type: 'divider'},
-					markdownContextBlock(`*Race organiser:* <@${this.userId}>`)
-				];
-			case 'finished':
-				const winningHorses = this.horses.filter(horse => horse.finishingPosition === 1);
-				const winningHorseIds = winningHorses.map(horse => horse._id);
-				const winningHorseNames = winningHorses.map(horse => horse.name);
-				const winningBets = await app.models.Bet.find({
-					horseId: {$in: winningHorseIds}
-				});
-				const winningBetterNames = (
-					winningBets.length ?
-						winningBets.map(bet => `<@${bet.slackUserId}>`) :
-						['nobody']
-				);
-				return [
-					markdownSectionBlock(`This race is over!\nCongratulations *_${winningHorseNames.join(', ')}_* :trophy:`),
-					{type: 'divider'},
-					...this.horses.map(horse => horse.renderForSlack()),
-					{type: 'divider'},
-					markdownSectionBlock(`Well done ${winningBetterNames.join(', ')} for betting on the right horse.`),
-					markdownContextBlock(`*Race organiser:* <@${this.userId}>`)
-				];
+		if (this.phase === 'betting') {
+			return [
+				markdownSectionBlock(`Please place your bets! You can bet on one horse and change the bet until the race commences (in 30 seconds)`),
+				{type: 'divider'},
+				...this.horses.map(horse => horse.renderForSlack(true)),
+				{type: 'divider'},
+				markdownContextBlock(`*Race organiser:* <@${this.userId}>`)
+			];
+		} else if (this.phase === 'racing') {
+			return [
+				markdownSectionBlock(`The race is on!\nDon't forget to cheer on your horse!`),
+				{type: 'divider'},
+				...this.horses.map(horse => horse.renderForSlack()),
+				{type: 'divider'},
+				markdownContextBlock(`*Race organiser:* <@${this.userId}>`)
+			];
+		} else if (this.phase === 'finished') {
+			const winningHorses = this.horses.filter(horse => horse.finishingPosition === 1);
+			const winningHorseIds = winningHorses.map(horse => horse._id);
+			const winningHorseNames = winningHorses.map(horse => horse.name);
+			const winningBets = await app.models.Bet.find({
+				horseId: {$in: winningHorseIds}
+			});
+			const winningBetterNames = (
+				winningBets.length ?
+					winningBets.map(bet => `<@${bet.slackUserId}>`) :
+					['nobody']
+			);
+			return [
+				markdownSectionBlock(`This race is over!\nCongratulations *_${winningHorseNames.join(', ')}_* :trophy:`),
+				{type: 'divider'},
+				...this.horses.map(horse => horse.renderForSlack()),
+				{type: 'divider'},
+				markdownSectionBlock(`Well done ${winningBetterNames.join(', ')} for betting on the right horse.`),
+				markdownContextBlock(`*Race organiser:* <@${this.userId}>`)
+			];
 		}
 	});
 
@@ -203,9 +203,9 @@ module.exports = function initRaceModel(app) {
 	});
 
 	raceSchema.method('placeBet', async function({slackWebClient, horseId, slackChannelId, slackUserId}) {
-		const horse = this.horses.find(horse => horse._id.toString() === horseId);
+		const horse = this.horses.find(({_id}) => _id.toString() === horseId);
 		const existingBet = await app.models.Bet.findOne({
-			slackUserId: slackUserId,
+			slackUserId,
 			raceId: this._id
 		});
 
@@ -227,7 +227,7 @@ module.exports = function initRaceModel(app) {
 		try {
 			await slackWebClient.chat.postMessage({
 				channel: slackChannelId,
-				thread_ts: this.messageTimestamp,
+				thread_ts: this.messageTimestamp, // eslint-disable-line camelcase
 				text: successMessage
 			});
 		} catch (error) {
@@ -237,7 +237,7 @@ module.exports = function initRaceModel(app) {
 	});
 
 	function timer(ms) {
-		return new Promise((resolve) => {
+		return new Promise(resolve => {
 			setTimeout(() => {
 				resolve();
 			}, ms);
@@ -264,7 +264,7 @@ module.exports = function initRaceModel(app) {
 					text
 				}
 			]
-		}
+		};
 	}
 
 	return raceSchema;

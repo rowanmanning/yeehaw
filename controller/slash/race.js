@@ -51,7 +51,7 @@ module.exports = function initRaceController(app) {
 		}
 	}
 
-	async function getEmoji(request, response, next) {
+	function getEmoji(request, response, next) {
 		try {
 			if (typeof request.body.text === 'string') {
 				const emoji = extractEmoji(request.body.text).slice(0, 5);
@@ -86,7 +86,7 @@ module.exports = function initRaceController(app) {
 		}
 	}
 
-	async function handleError(error, request, response, next) {
+	async function handleError(error, request, response, next) { // eslint-disable-line no-unused-vars
 		try {
 			app.log.error(`Race error: ${error.message}`);
 			const errorText = error.publicMessage || 'Your race could not be started. Yeehaw :pensive:';
@@ -98,12 +98,12 @@ module.exports = function initRaceController(app) {
 					json: true,
 					body: {
 						text: errorText,
-						response_type: 'ephemeral'
+						response_type: 'ephemeral' // eslint-disable-line camelcase
 					}
 				});
 			}
-		} catch (error) {
-			app.log.error(`Error response could not be sent: ${error.message}`);
+		} catch (caughtError) {
+			app.log.error(`Error response could not be sent: ${caughtError.message}`);
 		}
 	}
 

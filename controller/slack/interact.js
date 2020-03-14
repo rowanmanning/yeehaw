@@ -50,8 +50,8 @@ module.exports = function initSlackInteractController(app) {
 	async function performInteraction(request, response, next) {
 		try {
 			for (const action of request.body.payload.actions) {
-				switch (action.action_id) {
-					case 'bet': await performBetAction(action, request.body.payload, response.locals.bot); break;
+				if (action.action_id === 'bet') {
+					await performBetAction(action, request.body.payload, response.locals.bot);
 				}
 			}
 		} catch (error) {
@@ -80,7 +80,7 @@ module.exports = function initSlackInteractController(app) {
 		});
 	}
 
-	async function handleError(error, request, response, next) {
+	function handleError(error, request, response, next) { // eslint-disable-line no-unused-vars
 		app.log.error(`Interaction error: ${error.message}`);
 	}
 
