@@ -12,8 +12,6 @@ module.exports = function initRaceController(app) {
 		getSlackWebClient,
 		routeSlashCommand
 	];
-	// Slash/race is here for legacy reasons
-	router.post('/slash/race', slashCommandMiddleware);
 	router.post('/slack/slash', slashCommandMiddleware);
 
 	function validateRequestBody(request, response, next) {
