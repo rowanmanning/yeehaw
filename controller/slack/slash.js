@@ -7,12 +7,11 @@ module.exports = function initRaceController(app) {
 	const {router} = app;
 	const {Bot} = app.models;
 
-	const slashCommandMiddleware = [
+	router.post('/slack/slash', [
 		validateRequestBody,
 		getSlackWebClient,
 		routeSlashCommand
-	];
-	router.post('/slack/slash', slashCommandMiddleware);
+	]);
 
 	function validateRequestBody(request, response, next) {
 		try {
