@@ -2,9 +2,9 @@
 
 const {Schema} = require('@rowanmanning/app');
 
-module.exports = function initBetModel() {
+module.exports = function initBetModel(app) {
 
-	return new Schema({
+	const betSchema = new Schema({
 		slackUserId: {
 			type: String,
 			required: true,
@@ -21,4 +21,19 @@ module.exports = function initBetModel() {
 		}
 	}, {timestamps: true});
 
+	betSchema.static('findWinningBets', async function(teamId, channelId) {
+		const query = {teamId};
+		if (channelId) {
+			query.channelId = channelId;
+		}
+		const races = await app.models.Race.find(query);
+		const winningHorseIds = races
+			.reduce((horses, race) => {
+				return horses.concat(race.horses.filter(horse => horse.finishingPosition === 1));
+			}, [])
+			.map(horse => horse.id);
+		return this.find({horseId: {$in: winningHorseIds}});
+	});
+
+	return betSchema;
 };
