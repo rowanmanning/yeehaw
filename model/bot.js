@@ -1,7 +1,8 @@
 'use strict';
 
-module.exports = function initBotModel(app) {
-	const {Schema} = app;
+const {Schema} = require('@rowanmanning/app');
+
+module.exports = function initBotModel() {
 
 	return new Schema({
 		slackAuthScope: {

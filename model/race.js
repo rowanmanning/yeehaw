@@ -3,12 +3,12 @@
 const adjectives = require('../lib/adjectives');
 const nouns = require('../lib/nouns');
 const sample = require('lodash/sample');
+const {Schema} = require('@rowanmanning/app');
 
 const horseMovement = [1, 1, 2, 2, 3, 4];
 const defaultEmoji = ':horse_racing:';
 
 module.exports = function initRaceModel(app) {
-	const {Schema} = app;
 
 	function generateHorseName() {
 		return `${sample(adjectives)} ${sample(nouns)}`;

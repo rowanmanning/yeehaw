@@ -1,7 +1,8 @@
 'use strict';
 
-module.exports = function initBetModel(app) {
-	const {Schema} = app;
+const {Schema} = require('@rowanmanning/app');
+
+module.exports = function initBetModel() {
 
 	return new Schema({
 		slackUserId: {
