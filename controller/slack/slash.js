@@ -12,6 +12,7 @@ module.exports = function initRaceController(app) {
 		getSlackWebClient,
 		routeSlashCommand
 	];
+	// Slash/race is here for legacy reasons
 	router.post('/slash/race', slashCommandMiddleware);
 	router.post('/slack/slash', slashCommandMiddleware);
 
@@ -78,7 +79,7 @@ module.exports = function initRaceController(app) {
 			// Otherwise we use the start command
 			} else {
 				app.log.info(`Running "race start" slash command (as a default)`);
-				commandOptions.arguments = rawCommandString;
+				commandOptions.text = rawCommandString;
 				await commands.start(commandOptions);
 			}
 		} catch (error) {
