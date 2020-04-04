@@ -94,6 +94,17 @@ module.exports = function initSlackInteractController(app) {
 					app.log.error(`Error: "${shortcutActionId}" shortcut interaction does not exist`);
 				}
 
+			// View submission actions are singular
+			} else if (interactionType === 'view_submission') {
+				const view = request.body.payload.view;
+				const viewSubmissionActionId = view.callback_id;
+				if (interactions[viewSubmissionActionId]) {
+					app.log.info(`Running "${viewSubmissionActionId}" view submission interaction`);
+					await interactions[viewSubmissionActionId](Object.assign({}, interactionOptions, {view}));
+				} else {
+					app.log.error(`Error: "${viewSubmissionActionId}" view submission interaction does not exist`);
+				}
+
 			// Otherwise we don't know what to do
 			} else {
 				app.log.error(`Error: "${interactionType}" interactions are not supported`);
