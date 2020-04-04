@@ -80,11 +80,11 @@ Get this application running on your local machine by following these steps. War
 
         This will give you a public forwarding URL, something like `https://RANDOM_CHARACTERS.ngrok.io`. You'll need to do two things to finish this setup:
 
-          1. Update your Slack App to allow your new ngrok URL as a redirect URL. Add it to the Redirect URLs in your Slack App's "OAuth & Permissions" section
-          2. Update your Slack App slash commands to use use your ngrok URL
-          3. Update your Slack App interactivity and shortcuts to use use your ngrok URL
-          4. Change your `BASE_URL` in `.env` to the new public ngrok URL
-          5. Restart your application locally
+        1. Update your Slack App to allow your new ngrok URL as a redirect URL. Add it to the Redirect URLs in your Slack App's "OAuth & Permissions" section
+        2. Update your Slack App slash commands to use use your ngrok URL
+        3. Update your Slack App interactivity and shortcuts to use use your ngrok URL
+        4. Change your `BASE_URL` in `.env` to the new public ngrok URL
+        5. Restart your application locally
 
   8. Visit your new ngrok URL in-browser, you should see the Yeehaw home page. Click the "Add to Slack" button, and authenticate
 
@@ -129,11 +129,11 @@ Instructions on creating a Slack App for local development or hosting your own p
 
   3. Under "Add features and functionality", click "Slash Commands". Then click "Create New Command" and fill out the following:
 
-        * **Command:** `/race`
-        * **Request URL:** `https://your-public-url.com/slack/slash` (put a placeholder in here for now if you don't yet have a public URL or are only working locally)
-        * **Short Description:** `Race some horses! Yeehaw!`
-        * **Usage Hint:** `(start | leaderboard | stats) [up to five emoji]`
-        * Check the box "Escape channels, users, and links sent to your app"
+      * **Command:** `/race`
+      * **Request URL:** `https://your-public-url.com/slack/slash` (put a placeholder in here for now if you don't yet have a public URL or are only working locally)
+      * **Short Description:** `Race some horses! Yeehaw!`
+      * **Usage Hint:** `(start | leaderboard | stats) [up to five emoji]`
+      * Check the box "Escape channels, users, and links sent to your app"
 
       Now save your slash command.
 
@@ -143,12 +143,12 @@ Instructions on creating a Slack App for local development or hosting your own p
 
   6. Under "Scopes", add the following OAuth scopes:
 
-          * `chat:write`
-          * `commands`
+      * `chat:write`
+      * `commands`
 
   7. Click on "Manage Distribution" in the sidebar. You'll need to make your Slack app public in order to finish setting up Yeehaw, don't worry though – it doesn't appear in the Slack Directory yet!
 
-        Scroll down to "Remove Hard Coded Information" and check the box that says you've reviewed everything. Then click "Activate Public Distribution".
+      Scroll down to "Remove Hard Coded Information" and check the box that says you've reviewed everything. Then click "Activate Public Distribution".
 
   8. You're done! You can now move on to [local installation](#running-locally) or [installing on a server](#running-on-a-server)
 
