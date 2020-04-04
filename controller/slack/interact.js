@@ -64,11 +64,11 @@ module.exports = function initSlackInteractController(app) {
 
 			const interactionOptions = {
 				payload: request.body.payload,
-				channelId: (request.payload.channel ? request.payload.channel.id : undefined),
+				channelId: (request.body.payload.channel ? request.body.payload.channel.id : undefined),
 				models: app.models,
 				slackWebClient,
-				teamId: (request.payload.team ? request.payload.team.id : undefined),
-				userId: (request.payload.user ? request.payload.user.id : undefined)
+				teamId: (request.body.payload.team ? request.body.payload.team.id : undefined),
+				userId: (request.body.payload.user ? request.body.payload.user.id : undefined)
 			};
 
 			// Block actions can contain multiple values, so we need
