@@ -1,0 +1,40 @@
+{
+	"name": "Yeehaw",
+	"description": "Race horses in Slack",
+	"keywords": [
+		"horse",
+		"race",
+		"yeehaw"
+	],
+	"website": "https://github.com/rowanmanning/yeehaw",
+	"repository": "https://github.com/rowanmanning/yeehaw",
+	"success_url": "/",
+	"buildpacks": [
+		{
+			"url": "heroku/nodejs"
+		}
+	],
+	"addons": [
+		{
+			"plan": "mongolab:sandbox"
+		}
+	],
+	"env": {
+		"BASE_URL": {
+			"description": "A public URL where your app runs, with no trailing slash. Should be https://your-app-name.herokuapp.com"
+		},
+		"SLACK_CLIENT_ID": {
+			"description": "A Slack App Client ID"
+		},
+		"SLACK_CLIENT_SECRET": {
+			"description": "A Slack App Client Secret"
+		},
+		"SLACK_CLIENT_SIGNING_SECRET": {
+			"description": "A Slack App Signing Secret"
+		},
+		"SESSION_SECRET": {
+			"description": "A secret key for hashing sessions.",
+			"generator": "secret"
+		}
+	}
+}

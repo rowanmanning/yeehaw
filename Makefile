@@ -6,3 +6,9 @@
 include node_modules/@rowanmanning/make/javascript/index.mk
 # [edit below this line]
 # ------------------------------------------------------------------------
+
+start:
+	@NODE_ENV=production node .
+
+start-dev:
+	@NODE_ENV=development nodemon -e js,json .
