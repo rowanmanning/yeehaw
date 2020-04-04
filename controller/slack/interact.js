@@ -43,7 +43,7 @@ module.exports = function initSlackInteractController(app) {
 	async function getSlackWebClient(request, response, next) {
 		try {
 			const bot = await Bot.findOne({
-				slackTeamId: request.body.team_id
+				slackTeamId: request.body.payload.team.id
 			}).sort({
 				createdAt: -1
 			});
