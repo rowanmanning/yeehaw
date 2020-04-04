@@ -16,7 +16,7 @@ module.exports = function initSlackInteractController(app) {
 	]);
 
 	function sendAcknowledgmentResponse(request, response, next) {
-		response.send('OK');
+		response.send('');
 		next();
 	}
 
