@@ -81,7 +81,6 @@ module.exports = function initSlackInteractController(app) {
 						await interactions[blockActionId](Object.assign({}, interactionOptions, {blockAction}));
 					} else {
 						app.log.error(`Error: "${blockActionId}" block action interaction does not exist`);
-						app.log.info('BLOCK ACTION PAYLOAD', request.body.payload);
 					}
 				}
 
@@ -93,8 +92,12 @@ module.exports = function initSlackInteractController(app) {
 					await interactions[shortcutActionId](interactionOptions);
 				} else {
 					app.log.error(`Error: "${shortcutActionId}" shortcut interaction does not exist`);
-					app.log.info('SHORTCUT PAYLOAD', request.body.payload);
 				}
+
+			// Otherwise we don't know what to do
+			} else {
+				app.log.error(`Error: "${interactionType}" interactions are not supported`);
+				app.log.info('INTERACTION PAYLOAD', request.body.payload);
 			}
 
 		} catch (error) {

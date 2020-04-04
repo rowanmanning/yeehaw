@@ -85,7 +85,7 @@ module.exports = function initRaceController(app) {
 					channel: request.body.channel_id,
 					user: request.body.user_id,
 					text: error.message,
-					response_type: 'ephemeral' // eslint-disable-line camelcase
+					response_type: 'ephemeral'
 				});
 			} catch (slackError) {
 				app.log.error(`Error response could not be sent: ${slackError.message}`);

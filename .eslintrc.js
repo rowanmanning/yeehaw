@@ -3,6 +3,7 @@
 module.exports = {
 	extends: '@rowanmanning/eslint-config/es2018',
 	rules: {
+		'camelcase': 'off',
 		'no-invalid-this': 'off',
 		'callback-return': 'off',
 		'max-depth': ['warn', 8],

@@ -78,7 +78,7 @@ module.exports = function initRaceModel(app) {
 					text: 'Place Bet',
 					emoji: true
 				},
-				action_id: 'bet', // eslint-disable-line camelcase
+				action_id: 'bet',
 				value: this._id
 			};
 		}
@@ -227,7 +227,7 @@ module.exports = function initRaceModel(app) {
 		try {
 			await slackWebClient.chat.postMessage({
 				channel: slackChannelId,
-				thread_ts: this.messageTimestamp, // eslint-disable-line camelcase
+				thread_ts: this.messageTimestamp,
 				text: successMessage
 			});
 		} catch (error) {
