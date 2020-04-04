@@ -139,18 +139,24 @@ Instructions on creating a Slack App for local development or hosting your own p
 
   4. Click "Interactivity & Shortcuts" in the sidebar, and turn it on. Set the Interactivity Endpoint to `https://your-public-url.com/slack/interact` (put a placeholder in here for now if you don't yet have a public URL or are only working locally). Click "Save Changes"
 
-  5. Click on "OAuth & Permissions" in the sidebar. If you have a public URL, add a Redirect URL: `https://your-public-url.com/` and click "Save URLs"
+  5. Scroll down to "Shortcuts", and click "Create New Shortcut". Select "Global" and click "Next". Fill out the following:
 
-  6. Under "Scopes", add the following OAuth scopes:
+      * **Name:** `Start a Race`
+      * **Short Description:** `Race some horses! Yeehaw!`
+      * **Callback ID:** `setupRace`
+
+  6. Click on "OAuth & Permissions" in the sidebar. If you have a public URL, add a Redirect URL: `https://your-public-url.com/` and click "Save URLs"
+
+  7. Under "Scopes", add the following OAuth scopes:
 
       * `chat:write`
       * `commands`
 
-  7. Click on "Manage Distribution" in the sidebar. You'll need to make your Slack app public in order to finish setting up Yeehaw, don't worry though – it doesn't appear in the Slack Directory yet!
+  8. Click on "Manage Distribution" in the sidebar. You'll need to make your Slack app public in order to finish setting up Yeehaw, don't worry though – it doesn't appear in the Slack Directory yet!
 
       Scroll down to "Remove Hard Coded Information" and check the box that says you've reviewed everything. Then click "Activate Public Distribution".
 
-  8. You're done! You can now move on to [local installation](#running-locally) or [installing on a server](#running-on-a-server)
+  9. You're done! You can now move on to [local installation](#running-locally) or [installing on a server](#running-on-a-server)
 
 
 ## Contributing
