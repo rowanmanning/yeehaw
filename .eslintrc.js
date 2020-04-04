@@ -5,8 +5,9 @@ module.exports = {
 	rules: {
 		'no-invalid-this': 'off',
 		'callback-return': 'off',
-		'max-depth': ['warn', 3],
-		'complexity': ['warn', 10],
+		'max-depth': ['warn', 8],
+		'max-statements': ['warn', 30],
+		'complexity': ['warn', 20],
 		'no-underscore-dangle': 'off'
 	}
 };

@@ -1,11 +1,11 @@
 'use strict';
 
-// Const interactions = require('../../lib/interact');
+const interactions = require('../../lib/interact');
 const SlackWebApiClient = require('@slack/web-api').WebClient;
 
 module.exports = function initSlackInteractController(app) {
 	const {router} = app;
-	const {Bot, Race} = app.models;
+	const {Bot} = app.models;
 
 	router.post('/slack/interact', [
 		sendAcknowledgmentResponse,
@@ -60,42 +60,46 @@ module.exports = function initSlackInteractController(app) {
 	async function routeInteraction(request) {
 		const {slackWebClient} = request;
 		try {
-			// Const interactionType = request.body.payload.type;
-			app.log.info('PAYLOAD', request.body.payload);
+			const interactionType = request.body.payload.type;
 
-			// Temporary to keep bets working for now
-			if (Array.isArray(request.body.payload.actions)) {
-				for (const action of request.body.payload.actions) {
-					if (action.action_id === 'bet') {
-						await performBetAction(action, request.body.payload, slackWebClient);
+			const interactionOptions = {
+				payload: request.body.payload,
+				channelId: (request.payload.channel ? request.payload.channel.id : undefined),
+				models: app.models,
+				slackWebClient,
+				teamId: (request.payload.team ? request.payload.team.id : undefined),
+				userId: (request.payload.user ? request.payload.user.id : undefined)
+			};
+
+			// Block actions can contain multiple values, so we need
+			// to loop over these
+			if (interactionType === 'block_actions') {
+				for (const blockAction of request.body.payload.actions) {
+					const blockActionId = blockAction.action_id;
+					if (interactions[blockActionId]) {
+						app.log.info(`Running "${blockActionId}" block action interaction`);
+						await interactions[blockActionId](Object.assign({}, interactionOptions, {blockAction}));
+					} else {
+						app.log.error(`Error: "${blockActionId}" block action interaction does not exist`);
+						app.log.info('BLOCK ACTION PAYLOAD', request.body.payload);
 					}
+				}
+
+			// Shortcut actions are singular
+			} else if (interactionType === 'shortcut') {
+				const shortcutActionId = request.body.payload.callback_id;
+				if (interactions[shortcutActionId]) {
+					app.log.info(`Running "${shortcutActionId}" shortcut interaction`);
+					await interactions[shortcutActionId](interactionOptions);
+				} else {
+					app.log.error(`Error: "${shortcutActionId}" shortcut interaction does not exist`);
+					app.log.info('SHORTCUT PAYLOAD', request.body.payload);
 				}
 			}
 
 		} catch (error) {
 			app.log.error(`Interaction failed: ${error.message}`);
 		}
-	}
-
-	async function performBetAction(action, payload, slackWebClient) {
-		const race = await Race.findOne({
-			horses: {
-				$elemMatch: {
-					_id: action.value
-				}
-			}
-		});
-		if (!race) {
-			throw new Error('Horse does not exist');
-		}
-
-		await race.placeBet({
-			slackWebClient,
-			horseId: action.value,
-			raceId: race._id,
-			slackChannelId: payload.channel.id,
-			slackUserId: payload.user.id
-		});
 	}
 
 };
