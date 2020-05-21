@@ -202,7 +202,7 @@ module.exports = function initRaceModel(app) {
 		return this.save();
 	});
 
-	raceSchema.method('placeBet', async function({slackWebClient, horseId, slackChannelId, slackUserId}) {
+	raceSchema.method('placeBet', async function({slackWebClient, horseId, slackChannelId, slackTeamId, slackUserId}) {
 		const horse = this.horses.find(({_id}) => _id.toString() === horseId);
 		const existingBet = await app.models.Bet.findOne({
 			slackUserId,
@@ -216,6 +216,7 @@ module.exports = function initRaceModel(app) {
 			successMessage = `<@${slackUserId}> changed their bet to *_${horse.name}_*.`;
 		} else {
 			const newBet = new app.models.Bet({
+				slackTeamId,
 				slackUserId,
 				raceId: this._id,
 				horseId

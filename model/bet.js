@@ -5,6 +5,11 @@ const {Schema} = require('@rowanmanning/app');
 module.exports = function initBetModel(app) {
 
 	const betSchema = new Schema({
+		slackTeamId: {
+			type: String,
+			required: true,
+			index: true
+		},
 		slackUserId: {
 			type: String,
 			required: true,
