@@ -10,6 +10,7 @@ const app = new App({
 	basePath: __dirname,
 	baseUrl: process.env.BASE_URL,
 	databaseUrl: process.env.MONGODB_URI || 'mongodb://localhost:27017/yeehaw',
+	fathomSiteId: process.env.FATHOM_SITE_ID,
 	name: 'Yeehaw',
 	sessionSecret: process.env.SESSION_SECRET || uuid.v4(),
 	slackClientId: process.env.SLACK_CLIENT_ID,

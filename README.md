@@ -118,6 +118,8 @@ This application is configured using environment variables, or an [`.env` file](
 
   - **`SLACK_CLIENT_SIGNING_SECRET`**: A Slack App Signing Secret. A Slack App Client ID. See [Slack App setup](#slack-app-setup) for instructions on how to get this.
 
+  - **`FATHOM_SITE_ID`**: A [Fathom](https://usefathom.com/) site ID, used for tracking web views. This respects Do Not Track, doesn't use cookies, and is optional (mostly used for the main public install).
+
 
 ## Slack App setup
 
