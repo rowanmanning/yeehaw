@@ -1,7 +1,9 @@
 'use strict';
 
-const adjectives = require('../lib/adjectives');
-const nouns = require('../lib/nouns');
+const adjectives = require('../lib/words/adjectives');
+const christmasAdjectives = require('../lib/words/adjectives-christmas');
+const nouns = require('../lib/words/nouns');
+const christmasNouns = require('../lib/words/nouns-christmas');
 const sample = require('lodash/sample');
 const {Schema} = require('@rowanmanning/app');
 
@@ -10,7 +12,14 @@ const defaultEmoji = ':horse_racing:';
 
 module.exports = function initRaceModel(app) {
 
+	function isDecember() {
+		return (new Date().getUTCMonth() === 11);
+	}
+
 	function generateHorseName() {
+		if (isDecember()) {
+			return `${sample(christmasAdjectives)} ${sample(christmasNouns)}`;
+		}
 		return `${sample(adjectives)} ${sample(nouns)}`;
 	}
 
