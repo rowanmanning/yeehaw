@@ -20,7 +20,7 @@
     "node": ">=12"
   },
   "dependencies": {
-    "@rowanmanning/app": "^1.0.0-alpha.17",
+    "@rowanmanning/app": "^1.0.0-alpha.25",
     "@slack/web-api": "^5.8.0",
     "dotenv": "^8.2.0",
     "lodash": "^4.17.20",
