@@ -1,8 +1,10 @@
 'use strict';
 
 const adjectives = require('../lib/words/adjectives');
+const valentinesDayAdjectives = require('../lib/words/adjectives-valentines-day');
 const christmasAdjectives = require('../lib/words/adjectives-christmas');
 const nouns = require('../lib/words/nouns');
+const valentinesDayNouns = require('../lib/words/nouns-valentines-day');
 const christmasNouns = require('../lib/words/nouns-christmas');
 const sample = require('lodash/sample');
 const {Schema} = require('@rowanmanning/app');
@@ -12,11 +14,21 @@ const defaultEmoji = ':horse_racing:';
 
 module.exports = function initRaceModel(app) {
 
+	function isValentinesDayIsh() {
+		const date = new Date();
+		const month = date.getUTCMonth();
+		const day = date.getUTCDate();
+		return (month === 1 && day >= 12 && day <= 16);
+	}
+
 	function isDecember() {
 		return (new Date().getUTCMonth() === 11);
 	}
 
 	function generateHorseName() {
+		if (isValentinesDayIsh()) {
+			return `${sample(valentinesDayAdjectives)} ${sample(valentinesDayNouns)}`;
+		}
 		if (isDecember()) {
 			return `${sample(christmasAdjectives)} ${sample(christmasNouns)}`;
 		}
