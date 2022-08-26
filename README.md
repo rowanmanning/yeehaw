@@ -95,7 +95,7 @@ Get this application running on your local machine by following these steps. War
 
 Most instructions for running on a server are the same as [running locally](#running-locally). You just don't need to use ngrok or similar for the public URL. The simplest way to get set up on a server is with Heroku:
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/rowanmanning/yeehaw/tree/master)
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/rowanmanning/yeehaw/tree/main)
 
 
 ## Config options
