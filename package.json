@@ -1,0 +1,57 @@
+{
+  "name": "@rowanmanning/yeehaw",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Race horses in Slack",
+  "keywords": [
+    "horse",
+    "race",
+    "yeehaw"
+  ],
+  "author": "Rowan Manning (https://rowanmanning.com/)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rowanmanning/yeehaw.git"
+  },
+  "homepage": "https://github.com/rowanmanning/yeehaw",
+  "bugs": "https://github.com/rowanmanning/yeehaw/issues",
+  "license": "MIT",
+  "engines": {
+    "node": "16.x",
+    "npm": "8.x"
+  },
+  "scripts": {
+    "start": "node .",
+    "start:dev": "nodemon . | pino-pretty",
+    "verify": "npm run verify:eslint && npm run verify:types",
+    "verify:eslint": "eslint .",
+    "verify:types": "tsc --noEmit --project ./jsconfig.json",
+    "project:verify": "npx --yes @rowanmanning/validate-project@2 --type git node-express-app",
+    "project:fix": "npx --yes @rowanmanning/validate-project@2 --type git node-express-app --fix",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "@slack/bolt": "^3.12.1",
+    "dotenv": "^16.0.1",
+    "mongoose": "^6.5.3",
+    "pino": "^8.4.2",
+    "random-item": "^3.1.0",
+    "slack-bolt-mongoose": "^0.3.1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
+    "@rowanmanning/eslint-config": "^4.0.5",
+    "eslint": "^8.22.0",
+    "husky": "^8.0.1",
+    "nodemon": "^2.0.19",
+    "pino-pretty": "^9.1.0",
+    "typescript": "^4.8.2"
+  },
+  "nodemonConfig": {
+    "ext": "js,jsx",
+    "ignore": [
+      "test/*"
+    ]
+  }
+}

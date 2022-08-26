@@ -1,0 +1,47 @@
+display_information:
+  name: Yeehaw
+  description: Race them horses
+  background_color: "#755f48"
+  long_description: "Stage exciting horse races from the comfort of any Slack channel. Yeehaw! Yes, that's correct, you can use this to race horses, and this text has to be 175 characters which is why I'm repeating the fact that you can race horses with this Slack app!"
+features:
+  app_home:
+    home_tab_enabled: true
+    messages_tab_enabled: false
+    messages_tab_read_only_enabled: false
+  bot_user:
+    display_name: Yeehaw
+    always_online: true
+  shortcuts:
+    - name: Start a race
+      type: global
+      callback_id: race
+      description: Race some horses! Yeehaw!
+  slash_commands:
+    - command: /race
+      url: https://yeehaw.rowanmanning.com/slack/events
+      description: Race some horses! Yeehaw!
+      usage_hint: "[up to five emoji]"
+      should_escape: true
+oauth_config:
+  redirect_urls:
+    - https://yeehaw.rowanmanning.com/slack/redirect
+  scopes:
+    bot:
+      - channels:join
+      - channels:read
+      - chat:write
+      - commands
+      - groups:read
+      - im:read
+      - mpim:read
+settings:
+  event_subscriptions:
+    request_url: https://yeehaw.rowanmanning.com/slack/events
+    bot_events:
+      - app_home_opened
+  interactivity:
+    is_enabled: true
+    request_url: https://yeehaw.rowanmanning.com/slack/events
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false
