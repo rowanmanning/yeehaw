@@ -17,16 +17,17 @@
   "bugs": "https://github.com/rowanmanning/yeehaw/issues",
   "license": "MIT",
   "engines": {
-    "node": ">=12"
+    "node": "16.x",
+    "npm": "8.x"
   },
   "dependencies": {
     "@rowanmanning/app": "^1.0.0-alpha.17",
     "@slack/web-api": "^5.8.0",
-    "dotenv": "^8.2.0",
-    "lodash": "^4.17.20",
+    "dotenv": "^16.0.1",
+    "lodash": "^4.17.21",
     "request": "^2.88.2",
     "request-promise-native": "^1.0.8",
-    "uuid": "^7.0.3"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@rowanmanning/eslint-config": "^2.1.0",
