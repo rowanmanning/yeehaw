@@ -35,7 +35,7 @@
     "dotenv": "^16.0.1",
     "mongoose": "^6.5.3",
     "pino": "^8.4.2",
-    "random-item": "^3.1.0",
+    "random-item": "^4.0.1",
     "slack-bolt-mongoose": "^0.3.1"
   },
   "devDependencies": {
