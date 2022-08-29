@@ -39,6 +39,11 @@ module.exports = function initializeRaceCommand({app, logger, mongoose}) {
 				if (!channel.is_member && !channel.is_im) {
 					await client.conversations.join({channel: channel.id});
 				}
+				if (command.text.startsWith('leaderboard')) {
+					return await respond({
+						text: 'The betting leaderboard has been moved to the home page for Yeehaw'
+					});
+				}
 				await runRace({
 					channelId: command.channel_id,
 					emoji: extractEmojiFromText(command.text),
