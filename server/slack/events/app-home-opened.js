@@ -95,6 +95,6 @@ async function getWinningBetCounts({Bet, Race, teamId}) {
 		return counts;
 	}, {});
 	return Object.entries(winningBetCountsByUser).sort(([, count1], [, count2]) => {
-		return count1 - count2;
+		return count2 - count1;
 	});
 }
