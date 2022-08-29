@@ -2,11 +2,11 @@ display_information:
   name: Yeehaw
   description: Race them horses
   background_color: "#755f48"
-  long_description: "Stage exciting horse races from the comfort of any Slack channel. Yeehaw! Yes, that's correct, you can use this to race horses, and this text has to be 175 characters which is why I'm repeating the fact that you can race horses with this Slack app!"
+  long_description: Stage exciting horse races from the comfort of any Slack channel. Yeehaw! Yes, that's correct, you can use this to race horses, and this text has to be 175 characters which is why I'm repeating the fact that you can race horses with this Slack app!
 features:
   app_home:
     home_tab_enabled: true
-    messages_tab_enabled: false
+    messages_tab_enabled: true
     messages_tab_read_only_enabled: false
   bot_user:
     display_name: Yeehaw
