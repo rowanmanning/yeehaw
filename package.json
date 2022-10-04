@@ -34,7 +34,7 @@
     "@slack/bolt": "^3.12.1",
     "dotenv": "^16.0.2",
     "mongoose": "^6.6.4",
-    "pino": "^8.6.0",
+    "pino": "^8.6.1",
     "random-item": "^3.1.0",
     "slack-bolt-mongoose": "^0.3.1"
   },
