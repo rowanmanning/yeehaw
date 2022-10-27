@@ -41,7 +41,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
-    "@rowanmanning/eslint-config": "^5.0.1",
+    "@rowanmanning/eslint-config": "^5.0.2",
     "eslint": "^8.26.0",
     "husky": "^8.0.1",
     "nodemon": "^2.0.20",
