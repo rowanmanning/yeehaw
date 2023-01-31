@@ -46,7 +46,7 @@
     "husky": "^8.0.3",
     "nodemon": "^2.0.20",
     "pino-pretty": "^9.1.1",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.5"
   },
   "nodemonConfig": {
     "ext": "js,jsx",
