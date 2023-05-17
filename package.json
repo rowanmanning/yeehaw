@@ -31,7 +31,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@slack/bolt": "^3.13.0",
+    "@slack/bolt": "^3.13.1",
     "dotenv": "^16.0.3",
     "mongoose": "^7.0.5",
     "pino": "^8.14.1",
