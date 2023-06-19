@@ -42,7 +42,7 @@
     "@commitlint/cli": "^17.6.5",
     "@commitlint/config-conventional": "^17.6.5",
     "@rowanmanning/eslint-config": "^6.0.4",
-    "eslint": "^8.41.0",
+    "eslint": "^8.43.0",
     "husky": "^8.0.3",
     "nodemon": "^2.0.22",
     "pino-pretty": "^10.0.0",
