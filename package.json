@@ -45,7 +45,7 @@
     "eslint": "^8.45.0",
     "husky": "^8.0.3",
     "nodemon": "^2.0.22",
-    "pino-pretty": "^10.0.0",
+    "pino-pretty": "^10.1.0",
     "typescript": "^5.1.6"
   },
   "nodemonConfig": {
