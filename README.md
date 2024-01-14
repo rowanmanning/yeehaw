@@ -24,7 +24,7 @@ Install on Slack and use the `/race` command.
 
 This application requires the following to run:
 
-  * [Node.js](https://nodejs.org/) 12+
+  * [Node.js](https://nodejs.org/) 20+
   * [MongoDB](https://www.mongodb.com/) 4+
   * A [Slack App](https://api.slack.com/start/overview) configured as per [these instructions](#slack-app-setup)
 
