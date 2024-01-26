@@ -39,8 +39,8 @@
     "slack-bolt-mongoose": "^0.3.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^18.4.4",
-    "@commitlint/config-conventional": "^18.4.4",
+    "@commitlint/cli": "^18.6.0",
+    "@commitlint/config-conventional": "^18.6.0",
     "@rowanmanning/eslint-config": "^8.0.2",
     "eslint": "^8.56.0",
     "husky": "^8.0.3",
