@@ -41,4 +41,6 @@ Sweet
 Sweetheart
 Sweetie
 Union
-`.trim().split('\n');
+`
+	.trim()
+	.split('\n');

@@ -1096,4 +1096,6 @@ Zegedine
 Zest
 Zibeline
 Zing
-`.trim().split('\n');
+`
+	.trim()
+	.split('\n');

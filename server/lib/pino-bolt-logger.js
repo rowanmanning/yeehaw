@@ -1,7 +1,6 @@
 'use strict';
 
 module.exports = class PinoBoltLogger {
-
 	constructor(pinoLogger) {
 		this.pinoLogger = pinoLogger;
 	}
@@ -31,5 +30,4 @@ module.exports = class PinoBoltLogger {
 	}
 
 	setName() {}
-
 };

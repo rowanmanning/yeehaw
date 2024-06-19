@@ -12,10 +12,9 @@ const runRace = require('../../lib/race');
  * @param {import('mongoose').Mongoose} options.mongoose
  *     The Mongoose database.
  */
-module.exports = function initializeRaceShortcut({app, logger, mongoose}) {
-
+module.exports = function initializeRaceShortcut({ app, logger, mongoose }) {
 	// Setup the race shortcut
-	app.shortcut('race', async ({ack, client, shortcut}) => {
+	app.shortcut('race', async ({ ack, client, shortcut }) => {
 		const log = logger.child({
 			shortcut: 'race',
 			triggerId: shortcut.trigger_id
@@ -77,7 +76,7 @@ module.exports = function initializeRaceShortcut({app, logger, mongoose}) {
 	});
 
 	// Handle the race shortcut view action
-	app.view('startRaceInChannel', async ({ack, body, client, view}) => {
+	app.view('startRaceInChannel', async ({ ack, body, client, view }) => {
 		const log = logger.child({
 			view: 'startRaceInChannel',
 			hash: view.hash
@@ -86,10 +85,8 @@ module.exports = function initializeRaceShortcut({app, logger, mongoose}) {
 		try {
 			await ack();
 
-			const channelId = view?.state?.values
-				?.channelInput
-				?.channelInputSelect
-				?.selected_channel;
+			const channelId =
+				view?.state?.values?.channelInput?.channelInputSelect?.selected_channel;
 
 			log.info({
 				msg: 'View executed',
@@ -100,10 +97,10 @@ module.exports = function initializeRaceShortcut({app, logger, mongoose}) {
 			if (!channelId) {
 				throw new Error('No channel ID provided');
 			}
-			const {channel} = await client.conversations.info({channel: channelId});
+			const { channel } = await client.conversations.info({ channel: channelId });
 			if (channel?.id) {
 				if (!channel.is_member && !channel.is_im) {
-					await client.conversations.join({channel: channel.id});
+					await client.conversations.join({ channel: channel.id });
 				}
 				await runRace({
 					channelId: channel.id,
@@ -122,5 +119,4 @@ module.exports = function initializeRaceShortcut({app, logger, mongoose}) {
 			throw error;
 		}
 	});
-
 };

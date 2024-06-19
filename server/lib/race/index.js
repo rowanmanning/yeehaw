@@ -1,6 +1,6 @@
 'use strict';
 
-const {divider, markdownContext, markdownSection} = require('../slack/block-kit-helpers');
+const { divider, markdownContext, markdownSection } = require('../slack/block-kit-helpers');
 const randomItem = require('random-item');
 const wait = require('../wait');
 
@@ -44,12 +44,14 @@ module.exports = async function runRace({
 	const Race = mongoose.model('Race');
 
 	// Generate the horses
-	const raceHorses = Array(5).fill(0).map((_, index) => {
-		return {
-			emoji: emoji[index] || randomItem(emoji) || DEFAULT_HORSE_EMOJI,
-			distanceFromFinish: HORSE_STARTING_DISTANCE
-		};
-	});
+	const raceHorses = Array(5)
+		.fill(0)
+		.map((_, index) => {
+			return {
+				emoji: emoji[index] || randomItem(emoji) || DEFAULT_HORSE_EMOJI,
+				distanceFromFinish: HORSE_STARTING_DISTANCE
+			};
+		});
 
 	// Store the race in the database
 	const race = await Race.create({
@@ -102,10 +104,10 @@ module.exports = async function runRace({
 	while (race.get('phase') !== 'finished') {
 		const horses = race.get('horses');
 
-		winningHorses = horses.filter(horse => horse.get('finishingPosition') === 1);
-		const winningHorseIds = winningHorses.map(horse => horse.get('_id'));
+		winningHorses = horses.filter((horse) => horse.get('finishingPosition') === 1);
+		const winningHorseIds = winningHorses.map((horse) => horse.get('_id'));
 		winningBets = await Bet.find({
-			horseId: {$in: winningHorseIds}
+			horseId: { $in: winningHorseIds }
 		});
 
 		await slackClient.chat.update({
@@ -118,7 +120,7 @@ module.exports = async function runRace({
 		});
 
 		// Finish the race if all of the horses have finished
-		if (horses.every(horse => horse.hasFinished)) {
+		if (horses.every((horse) => horse.hasFinished)) {
 			race.set('phase', 'finished');
 		}
 
@@ -131,7 +133,7 @@ module.exports = async function runRace({
 			return position;
 		}, 1);
 
-		horses.forEach(horse => {
+		for (const horse of horses) {
 			const hasFinished = horse.get('hasFinished');
 			let distanceFromFinish = horse.get('distanceFromFinish');
 			if (distanceFromFinish > 0) {
@@ -142,7 +144,7 @@ module.exports = async function runRace({
 				horse.set('finishingPosition', nextFinishingPosition);
 				horse.set('hasFinished', true);
 			}
-		});
+		}
 
 		await wait(RACE_STEP_WAIT_TIME);
 	}
@@ -180,15 +182,15 @@ module.exports = async function runRace({
  * @returns {Array<import('@slack/bolt').Block>}
  *     Returns an array of Slack blocks.
  */
-function renderRace({race, winningBets, winningHorses}) {
+function renderRace({ race, winningBets, winningHorses }) {
 	const phase = race.get('phase');
 	const userId = race.get('userId');
 	let blocks = [];
 
 	if (phase === 'betting') {
-		blocks = renderRaceBettingPhase({race});
+		blocks = renderRaceBettingPhase({ race });
 	} else if (phase === 'racing') {
-		blocks = renderRaceRacingPhase({race});
+		blocks = renderRaceRacingPhase({ race });
 	} else if (phase === 'finished') {
 		blocks = renderRaceFinishedPhase({
 			race,
@@ -197,11 +199,7 @@ function renderRace({race, winningBets, winningHorses}) {
 		});
 	}
 
-	return [
-		...blocks,
-		divider(),
-		markdownContext(`*Race organiser:* <@${userId}>`)
-	];
+	return [...blocks, divider(), markdownContext(`*Race organiser:* <@${userId}>`)];
 }
 
 /**
@@ -214,17 +212,19 @@ function renderRace({race, winningBets, winningHorses}) {
  * @returns {Array<import('@slack/bolt').Block>}
  *     Returns an array of Slack blocks.
  */
-function renderRaceBettingPhase({race}) {
+function renderRaceBettingPhase({ race }) {
 	const horses = race.get('horses');
 	return [
 		markdownSection(
 			`Please place your bets! You can bet on one horse and change the bet until the race commences (in ${BETTING_TIME_SECONDS} seconds)`
 		),
 		divider(),
-		...horses.map(horse => renderHorse({
-			horse,
-			isInBettingPhase: true
-		}))
+		...horses.map((horse) =>
+			renderHorse({
+				horse,
+				isInBettingPhase: true
+			})
+		)
 	];
 }
 
@@ -238,12 +238,12 @@ function renderRaceBettingPhase({race}) {
  * @returns {Array<import('@slack/bolt').Block>}
  *     Returns an array of Slack blocks.
  */
-function renderRaceRacingPhase({race}) {
+function renderRaceRacingPhase({ race }) {
 	const horses = race.get('horses');
 	return [
 		markdownSection(`The race is on!\nDon't forget to cheer on your horse!`),
 		divider(),
-		...horses.map(horse => renderHorse({horse}))
+		...horses.map((horse) => renderHorse({ horse }))
 	];
 }
 
@@ -261,20 +261,18 @@ function renderRaceRacingPhase({race}) {
  * @returns {Array<import('@slack/bolt').Block>}
  *     Returns an array of Slack blocks.
  */
-function renderRaceFinishedPhase({race, winningBets = [], winningHorses = []}) {
+function renderRaceFinishedPhase({ race, winningBets = [], winningHorses = [] }) {
 	const horses = race.get('horses');
-	const winningHorseNames = winningHorses.map(horse => horse.get('name'));
-	const winningBetterNames = (
-		winningBets.length ?
-			winningBets.map(bet => `<@${bet.get('slackUserId')}>`) :
-			['nobody']
-	);
+	const winningHorseNames = winningHorses.map((horse) => horse.get('name'));
+	const winningBetterNames = winningBets.length
+		? winningBets.map((bet) => `<@${bet.get('slackUserId')}>`)
+		: ['nobody'];
 	return [
 		markdownSection(
 			`This race is over!\nCongratulations *_${winningHorseNames.join(', ')}_* :trophy:`
 		),
 		divider(),
-		...horses.map(horse => renderHorse({horse})),
+		...horses.map((horse) => renderHorse({ horse })),
 		divider(),
 		markdownSection(
 			`Well done ${winningBetterNames.join(', ')} for betting on the right horse.`
@@ -294,7 +292,7 @@ function renderRaceFinishedPhase({race, winningBets = [], winningHorses = []}) {
  * @returns {import('@slack/bolt').SectionBlock}
  *     Returns a section block representing the horse.
  */
-function renderHorse({horse, isInBettingPhase = false}) {
+function renderHorse({ horse, isInBettingPhase = false }) {
 	const distanceFromFinish = horse.get('distanceFromFinish');
 	const emoji = horse.get('emoji');
 	const hasFinished = horse.get('hasFinished');
@@ -316,10 +314,18 @@ function renderHorse({horse, isInBettingPhase = false}) {
 	if (hasFinished) {
 		let trophy;
 		switch (horse.get('finishingPosition')) {
-			case 1: trophy = 'first_place_medal'; break;
-			case 2: trophy = 'second_place_medal'; break;
-			case 3: trophy = 'third_place_medal'; break;
-			default: trophy = 'blank'; break;
+			case 1:
+				trophy = 'first_place_medal';
+				break;
+			case 2:
+				trophy = 'second_place_medal';
+				break;
+			case 3:
+				trophy = 'third_place_medal';
+				break;
+			default:
+				trophy = 'blank';
+				break;
 		}
 		return markdownSection(`:${trophy}:${emoji} _${name}_`);
 	}

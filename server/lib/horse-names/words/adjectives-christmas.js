@@ -48,4 +48,6 @@ Winter
 Wintry
 Xmas
 Yuletide
-`.trim().split('\n');
+`
+	.trim()
+	.split('\n');

@@ -8,8 +8,8 @@ const generateHorseName = require('../lib/horse-names');
  * @param {import('mongoose').Mongoose} options.mongoose
  *     The Mongoose database.
  */
-module.exports = function initializeRaceModel({mongoose}) {
-	const {Schema} = mongoose;
+module.exports = function initializeRaceModel({ mongoose }) {
+	const { Schema } = mongoose;
 
 	// Define a schema for horses
 	const horseSchema = new Schema({
@@ -34,34 +34,36 @@ module.exports = function initializeRaceModel({mongoose}) {
 	});
 
 	// Define a schema for races
-	const raceSchema = new Schema({
-		teamId: {
-			type: String,
-			required: true
+	const raceSchema = new Schema(
+		{
+			teamId: {
+				type: String,
+				required: true
+			},
+			channelId: {
+				type: String,
+				required: true
+			},
+			userId: {
+				type: String,
+				required: true
+			},
+			messageTimestamp: {
+				type: String
+			},
+			horses: {
+				type: [horseSchema],
+				default: []
+			},
+			phase: {
+				type: String,
+				required: true,
+				default: 'betting',
+				enum: ['betting', 'racing', 'finished']
+			}
 		},
-		channelId: {
-			type: String,
-			required: true
-		},
-		userId: {
-			type: String,
-			required: true
-		},
-		messageTimestamp: {
-			type: String
-		},
-		horses: {
-			type: [horseSchema],
-			default: []
-		},
-		phase: {
-			type: String,
-			required: true,
-			default: 'betting',
-			enum: ['betting', 'racing', 'finished']
-		}
-	}, {timestamps: true});
+		{ timestamps: true }
+	);
 
 	mongoose.model('Race', raceSchema);
-
 };

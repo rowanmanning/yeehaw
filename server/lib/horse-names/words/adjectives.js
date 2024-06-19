@@ -215,4 +215,6 @@ Worrisome
 Wrong
 Zany
 Zealous
-`.trim().split('\n');
+`
+	.trim()
+	.split('\n');

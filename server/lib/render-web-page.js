@@ -8,7 +8,7 @@
  * @returns {string}
  *     Returns the page CSS.
  */
-module.exports = function renderWebPage({fathomSiteId}) {
+module.exports = function renderWebPage({ fathomSiteId }) {
 	const title = 'Yeehaw';
 
 	return `
@@ -18,9 +18,13 @@ module.exports = function renderWebPage({fathomSiteId}) {
 				<meta charset="utf-8" />
 				<title>${title}</title>
 				<style>${getCss()}</style>
-				${fathomSiteId ? `
+				${
+					fathomSiteId
+						? `
 					<script src="https://cdn.usefathom.com/script.js" data-site="${fathomSiteId}" honor-dnt="true" defer></script>
-				` : ''}
+				`
+						: ''
+				}
 			</head>
 			<body>
 				<div class="page">

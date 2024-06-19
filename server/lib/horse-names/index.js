@@ -39,7 +39,7 @@ module.exports = function generateHorseName() {
 function isValentinesSeason(date) {
 	const month = date.getUTCMonth();
 	const day = date.getUTCDate();
-	return (month === 1 && day >= 12 && day <= 16);
+	return month === 1 && day >= 12 && day <= 16;
 }
 
 /**
@@ -51,5 +51,5 @@ function isValentinesSeason(date) {
  *     Returns whether the date is around Christmas.
  */
 function isChristmasSeason(date) {
-	return (date.getUTCMonth() === 11);
+	return date.getUTCMonth() === 11;
 }
