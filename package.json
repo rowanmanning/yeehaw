@@ -21,7 +21,7 @@
     "npm": "10.x"
   },
   "scripts": {
-    "verify": "npm run verify:eslint && npm run verify:types",
+    "verify": "npm run verify:biome && npm run verify:types",
     "verify:biome": "biome check",
     "start": "node .",
     "start:dev": "nodemon . | pino-pretty",

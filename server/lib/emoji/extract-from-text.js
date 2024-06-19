@@ -13,6 +13,7 @@ const emojiRegExp = /:(([a-z0-9'+_-]{1,100})(::(skin-tone-\d))?):/g;
 module.exports = function extractEmojiFromText(text) {
 	const emoji = [];
 	let match;
+	// biome-ignore lint/suspicious/noAssignInExpressions: I can't be bothered to refactor
 	while ((match = emojiRegExp.exec(text)) !== null) {
 		emoji.push(`:${match[2]}:${match[4] ? `:${match[4]}:` : ''}`);
 	}

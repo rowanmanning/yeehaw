@@ -7,7 +7,7 @@
  *     Returns a new divider block.
  */
 function divider() {
-	return {type: 'divider'};
+	return { type: 'divider' };
 }
 
 /**

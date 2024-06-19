@@ -6,7 +6,7 @@ const yeehaw = require('./server');
 require('dotenv').config();
 
 // Create and start the app
-const {start} = yeehaw({
+const { start } = yeehaw({
 	fathomSiteId: process.env.FATHOM_SITE_ID,
 	mongoConnectionUri: process.env.MONGODB_URI,
 	slackClientId: process.env.SLACK_CLIENT_ID,
@@ -16,7 +16,8 @@ const {start} = yeehaw({
 });
 start({
 	port: process.env.PORT
-}).catch(error => {
+}).catch((error) => {
 	process.exitCode = 1;
+	// biome-ignore lint/nursery/noConsole: pino logging might fail. This is an escape hatch
 	console.error(error.stack);
 });

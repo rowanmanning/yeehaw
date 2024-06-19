@@ -13,10 +13,9 @@ const runRace = require('../../lib/race');
  * @param {import('mongoose').Mongoose} options.mongoose
  *     The Mongoose database.
  */
-module.exports = function initializeRaceCommand({app, logger, mongoose}) {
-
+module.exports = function initializeRaceCommand({ app, logger, mongoose }) {
 	// Setup the race command
-	app.command('/race', async ({ack, client, command, respond}) => {
+	app.command('/race', async ({ ack, client, command, respond }) => {
 		const log = logger.child({
 			command: 'race',
 			triggerId: command.trigger_id
@@ -32,12 +31,12 @@ module.exports = function initializeRaceCommand({app, logger, mongoose}) {
 				channelId: command.channel_id,
 				userId: command.user_id
 			});
-			const {channel} = await client.conversations.info({
+			const { channel } = await client.conversations.info({
 				channel: command.channel_id
 			});
 			if (channel?.id) {
 				if (!channel.is_member && !channel.is_im) {
-					await client.conversations.join({channel: channel.id});
+					await client.conversations.join({ channel: channel.id });
 				}
 				if (command.text.startsWith('leaderboard')) {
 					return await respond({
@@ -84,5 +83,4 @@ module.exports = function initializeRaceCommand({app, logger, mongoose}) {
 			throw error;
 		}
 	});
-
 };

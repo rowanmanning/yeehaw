@@ -9,7 +9,7 @@
  *     Returns a promise which resolves to nothing.
  */
 module.exports = function wait(milliseconds) {
-	return new Promise(resolve => {
+	return new Promise((resolve) => {
 		setTimeout(resolve, milliseconds);
 	});
 };

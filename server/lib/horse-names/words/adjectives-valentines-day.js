@@ -57,4 +57,6 @@ Sympathetic
 Trusting
 Unwavering
 Warm
-`.trim().split('\n');
+`
+	.trim()
+	.split('\n');

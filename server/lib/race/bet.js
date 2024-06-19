@@ -18,18 +18,11 @@
  * @param {string} options.userId
  *     The ID of the user who placed the bet.
  */
-module.exports = async function placeBet({
-	horseId,
-	logger,
-	mongoose,
-	race,
-	slackClient,
-	userId
-}) {
+module.exports = async function placeBet({ horseId, logger, mongoose, race, slackClient, userId }) {
 	const Bet = mongoose.model('Bet');
 
 	/** @type {import('mongoose').Document} */
-	const horse = race.get('horses').find(({_id}) => _id.toString() === horseId);
+	const horse = race.get('horses').find(({ _id }) => _id.toString() === horseId);
 	const existingBet = await Bet.findOne({
 		slackUserId: userId,
 		raceId: race._id

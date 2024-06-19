@@ -12,11 +12,11 @@ const placeBet = require('../../lib/race/bet');
  * @param {import('mongoose').Mongoose} options.mongoose
  *     The Mongoose database.
  */
-module.exports = function initializeBetAction({app, logger, mongoose}) {
+module.exports = function initializeBetAction({ app, logger, mongoose }) {
 	const Race = mongoose.model('Race');
 
 	// Handle the race betting action
-	app.action('bet', async ({ack, action, body, client}) => {
+	app.action('bet', async ({ ack, action, body, client }) => {
 		// @ts-ignore
 		const horseId = `${action?.value}`;
 
@@ -31,7 +31,7 @@ module.exports = function initializeBetAction({app, logger, mongoose}) {
 			await ack();
 
 			const race = await Race.findOne({
-				horses: {$elemMatch: {_id: horseId}}
+				horses: { $elemMatch: { _id: horseId } }
 			});
 			if (!race) {
 				throw new Error('Horse does not exist');
@@ -61,5 +61,4 @@ module.exports = function initializeBetAction({app, logger, mongoose}) {
 			throw error;
 		}
 	});
-
 };

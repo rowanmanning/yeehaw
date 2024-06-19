@@ -1,6 +1,6 @@
 'use strict';
 
-const {divider, markdownSection} = require('../../lib/slack/block-kit-helpers');
+const { divider, markdownSection } = require('../../lib/slack/block-kit-helpers');
 
 const numberFormatter = new Intl.NumberFormat('en');
 
@@ -14,12 +14,12 @@ const numberFormatter = new Intl.NumberFormat('en');
  * @param {import('mongoose').Mongoose} options.mongoose
  *     The Mongoose database.
  */
-module.exports = function initializeHomeView({app, logger, mongoose}) {
+module.exports = function initializeHomeView({ app, logger, mongoose }) {
 	const Bet = mongoose.model('Bet');
 	const Race = mongoose.model('Race');
 
 	// Handle the home page view
-	app.event('app_home_opened', async ({client, context, event}) => {
+	app.event('app_home_opened', async ({ client, context, event }) => {
 		const log = logger.child({
 			event: 'app_home_opened'
 		});
@@ -38,22 +38,29 @@ module.exports = function initializeHomeView({app, logger, mongoose}) {
 				teamId
 			});
 
-			const leaderboard = winningBetCounts.slice(0, 10).map(([userId, count]) => {
-				return `*<@${userId}>:* ${numberFormatter.format(count)} winning bets`;
-			}).join('\n');
+			const leaderboard = winningBetCounts
+				.slice(0, 10)
+				.map(([userId, count]) => {
+					return `*<@${userId}>:* ${numberFormatter.format(count)} winning bets`;
+				})
+				.join('\n');
 
 			await client.views.publish({
 				user_id: event.user,
 				view: {
 					type: 'home',
 					blocks: [
-						markdownSection('Yeehaw! You can race horses in Slack channels using the `/race` command.'),
+						markdownSection(
+							'Yeehaw! You can race horses in Slack channels using the `/race` command.'
+						),
 						divider(),
-						(
-							winningBetCounts.length ?
-								markdownSection(`*Leaderboard*\nThese are the top betters across all of Slack\n${leaderboard}`) :
-								markdownSection(`*Leaderboard*\nRace some horses and a leaderboard will appear here`)
-						)
+						winningBetCounts.length
+							? markdownSection(
+									`*Leaderboard*\nThese are the top betters across all of Slack\n${leaderboard}`
+								)
+							: markdownSection(
+									'*Leaderboard*\nRace some horses and a leaderboard will appear here'
+								)
 					]
 				}
 			});
@@ -65,7 +72,6 @@ module.exports = function initializeHomeView({app, logger, mongoose}) {
 			throw error;
 		}
 	});
-
 };
 
 /**
@@ -80,14 +86,16 @@ module.exports = function initializeHomeView({app, logger, mongoose}) {
  * @param {import('mongoose').Model} options.Race
  *     The Race model.
  */
-async function getWinningBetCounts({Bet, Race, teamId}) {
-	const races = await Race.find({teamId});
+async function getWinningBetCounts({ Bet, Race, teamId }) {
+	const races = await Race.find({ teamId });
 	const winningHorseIds = races
 		.reduce((horses, race) => {
-			return horses.concat(race.get('horses').filter(horse => horse.get('finishingPosition') === 1));
+			return horses.concat(
+				race.get('horses').filter((horse) => horse.get('finishingPosition') === 1)
+			);
 		}, [])
-		.map(horse => horse.id);
-	const winningBets = await Bet.find({horseId: {$in: winningHorseIds}});
+		.map((horse) => horse.id);
+	const winningBets = await Bet.find({ horseId: { $in: winningHorseIds } });
 	const winningBetCountsByUser = winningBets.reduce((counts, bet) => {
 		const slackUserId = bet.get('slackUserId');
 		counts[slackUserId] = counts[slackUserId] || 0;

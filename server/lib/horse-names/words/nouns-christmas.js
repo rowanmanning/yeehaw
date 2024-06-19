@@ -98,4 +98,6 @@ Wise Man
 Wish
 Wonder
 Wreath
-`.trim().split('\n');
+`
+	.trim()
+	.split('\n');

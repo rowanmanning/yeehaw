@@ -1,15 +1,15 @@
 'use strict';
 
-const {App: SlackApp} = require('@slack/bolt');
+const { App: SlackApp } = require('@slack/bolt');
 const initializeAppHomeOpenedEvent = require('./slack/events/app-home-opened');
 const initializeBetAction = require('./slack/actions/bet');
 const initializeBetModel = require('./model/bet');
 const initializeRaceCommand = require('./slack/commands/race');
 const initializeRaceModel = require('./model/race');
 const initializeRaceShortcut = require('./slack/shortcuts/race');
-const {Mongoose} = require('mongoose');
-const {MongooseInstallationStore} = require('slack-bolt-mongoose');
-const {default: pino} = require('pino');
+const { Mongoose } = require('mongoose');
+const { MongooseInstallationStore } = require('slack-bolt-mongoose');
+const { default: pino } = require('pino');
 const PinoBoltLogger = require('./lib/pino-bolt-logger');
 const renderWebPage = require('./lib/render-web-page');
 
@@ -22,7 +22,6 @@ module.exports = function yeehaw({
 	slackClientSigningSecret,
 	slackStateSecret
 }) {
-
 	// Create a MongoDB connection
 	const mongoose = new Mongoose();
 
@@ -57,18 +56,18 @@ module.exports = function yeehaw({
 			{
 				path: '/',
 				method: ['GET'],
-				handler: (request, response) => {
+				handler: (_request, response) => {
 					response.setHeader('Content-Type', 'text/html; charset=utf-8');
 					response.writeHead(200);
-					response.end(renderWebPage({fathomSiteId}));
+					response.end(renderWebPage({ fathomSiteId }));
 				}
 			}
 		]
 	});
 
 	// Load app models
-	initializeBetModel({mongoose});
-	initializeRaceModel({mongoose});
+	initializeBetModel({ mongoose });
+	initializeRaceModel({ mongoose });
 
 	// Load app commands and events
 	const initOptions = {
@@ -82,7 +81,7 @@ module.exports = function yeehaw({
 	initializeAppHomeOpenedEvent(initOptions);
 
 	return {
-		async start({port = '8080'}) {
+		async start({ port = '8080' }) {
 			await mongoose.connect(mongoConnectionUri);
 			await app.start(port);
 			logger.info('Application started');
