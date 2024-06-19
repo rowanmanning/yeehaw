@@ -21,10 +21,10 @@
     "npm": "10.x"
   },
   "scripts": {
+    "verify": "npm run verify:eslint && npm run verify:types",
+    "verify:biome": "biome check",
     "start": "node .",
     "start:dev": "nodemon . | pino-pretty",
-    "verify": "npm run verify:eslint && npm run verify:types",
-    "verify:eslint": "eslint .",
     "verify:types": "tsc --noEmit --project ./jsconfig.json",
     "project:verify": "npx --yes @rowanmanning/validate-project@2 --type git node-express-app",
     "project:fix": "npx --yes @rowanmanning/validate-project@2 --type git node-express-app --fix",
@@ -41,8 +41,7 @@
   "devDependencies": {
     "@commitlint/cli": "^18.6.0",
     "@commitlint/config-conventional": "^18.6.0",
-    "@rowanmanning/eslint-config": "^8.1.0",
-    "eslint": "^8.57.0",
+    "@rowanmanning/biome-config": "^1.2.0",
     "husky": "^9.0.11",
     "nodemon": "^3.1.0",
     "pino-pretty": "^10.3.1",
