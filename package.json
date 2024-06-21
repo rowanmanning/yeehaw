@@ -40,9 +40,9 @@
     "@commitlint/config-conventional": "^18.6.0",
     "@rowanmanning/biome-config": "^1.2.0",
     "husky": "^9.0.11",
-    "nodemon": "^3.1.0",
+    "nodemon": "^3.1.4",
     "pino-pretty": "^10.3.1",
-    "typescript": "^5.4.2"
+    "typescript": "^5.5.2"
   },
   "nodemonConfig": {
     "ext": "js,jsx",
