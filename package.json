@@ -26,8 +26,6 @@
     "start": "node .",
     "start:dev": "nodemon . | pino-pretty",
     "verify:types": "tsc --noEmit --project ./jsconfig.json",
-    "project:verify": "npx --yes @rowanmanning/validate-project@2 --type git node-express-app",
-    "project:fix": "npx --yes @rowanmanning/validate-project@2 --type git node-express-app --fix",
     "prepare": "husky"
   },
   "dependencies": {
