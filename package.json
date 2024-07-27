@@ -30,7 +30,7 @@
   "dependencies": {
     "@slack/bolt": "^3.19.0",
     "dotenv": "^16.4.5",
-    "mongoose": "^8.5.0",
+    "mongoose": "^8.5.1",
     "pino": "^9.3.2",
     "random-item": "^3.1.0",
     "slack-bolt-mongoose": "^0.3.1"
