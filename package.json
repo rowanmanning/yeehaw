@@ -28,7 +28,7 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@slack/bolt": "^3.21.1",
+    "@slack/bolt": "^3.21.2",
     "dotenv": "^16.4.5",
     "mongoose": "^8.6.1",
     "pino": "^9.4.0",
