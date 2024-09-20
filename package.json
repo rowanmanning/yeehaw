@@ -17,7 +17,7 @@
   "bugs": "https://github.com/rowanmanning/yeehaw/issues",
   "license": "MIT",
   "engines": {
-    "node": "20.x"
+    "node": "22.x"
   },
   "scripts": {
     "verify": "npm run verify:biome && npm run verify:types",
@@ -44,6 +44,6 @@
     "typescript": "^5.6.2"
   },
   "volta": {
-    "node": "20.11.0"
+    "node": "22.9.0"
   }
 }
