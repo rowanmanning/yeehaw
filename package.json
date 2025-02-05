@@ -38,7 +38,7 @@
   "devDependencies": {
     "@commitlint/cli": "^19.7.1",
     "@commitlint/config-conventional": "^19.7.1",
-    "@rowanmanning/biome-config": "^1.3.1",
+    "@rowanmanning/biome-config": "^1.4.0",
     "husky": "^9.1.7",
     "pino-pretty": "^11.3.0",
     "typescript": "^5.7.3"
