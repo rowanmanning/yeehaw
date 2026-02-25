@@ -1,0 +1,14 @@
+{
+  "name": "@yeehaw/boltify-logger",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "exports": {
+    ".": {
+      "default": "./index.ts"
+    }
+  },
+  "devDependencies": {
+    "@slack/bolt": "^4.6.0"
+  }
+}

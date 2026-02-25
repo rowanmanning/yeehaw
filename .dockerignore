@@ -1,0 +1,12 @@
+.env
+.git
+.github
+.gitignore
+.husky
+Dockerfile
+README.md
+biome.json
+node_modules
+slack-app-manifest.yml
+test
+tsconfig.json

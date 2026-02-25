@@ -1,0 +1,43 @@
+{
+  "name": "@rowanmanning/yeehaw",
+  "version": "3.0.0",
+  "type": "module",
+  "private": true,
+  "description": "Race horses in Slack",
+  "author": "Rowan Manning (https://rowanmanning.com/)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rowanmanning/yeehaw.git"
+  },
+  "homepage": "https://github.com/rowanmanning/yeehaw",
+  "bugs": "https://github.com/rowanmanning/yeehaw/issues",
+  "license": "MIT",
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "prepare": "husky || true",
+    "start": "npm run start -w server",
+    "start:local": "npm run start:local -w server",
+    "test": "npm run test:unit",
+    "test:unit": "node --test --experimental-test-coverage --test-coverage-branches=100 --test-coverage-functions=100 --test-coverage-lines=100 test/unit/**/*.test.js",
+    "verify": "npm run verify:biome && npm run verify:types",
+    "verify:biome": "biome check",
+    "verify:types": "tsc --project ./tsconfig.json"
+  },
+  "workspaces": [
+    "packages/*",
+    "server"
+  ],
+  "devDependencies": {
+    "@commitlint/cli": "^20.4.2",
+    "@commitlint/config-conventional": "^20.4.2",
+    "@rowanmanning/biome-config": "^3.0.1",
+    "@types/node": "^25.3.0",
+    "husky": "^9.0.7",
+    "typescript": "^5.5.2"
+  },
+  "volta": {
+    "node": "24.14.0"
+  }
+}

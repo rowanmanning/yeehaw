@@ -1,0 +1,15 @@
+{
+  "name": "@yeehaw/server",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node boot.ts",
+    "start:local": "node --watch --env-file-if-exists=../.env boot.ts"
+  },
+  "dependencies": {
+    "@slack/bolt": "^4.6.0",
+    "@yeehaw/boltify-logger": "*",
+    "@yeehaw/logger": "*"
+  }
+}

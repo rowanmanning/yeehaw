@@ -1,0 +1,17 @@
+display_information:
+  name: Yeehaw
+  description: Race them horses
+  background_color: "#755f48"
+  long_description: Stage exciting horse races from the comfort of any Slack channel. Yeehaw! Just invite the bot to your channel and use the `/race` command to get started. Before the race starts, you'll have a chance to bet on the winning horse.
+features:
+  bot_user:
+    display_name: Yeehaw
+    always_online: false
+oauth_config:
+  scopes:
+    bot:
+      - channels:join
+settings:
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false

@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"erasableSyntaxOnly": true,
+		"module": "nodenext",
+		"noEmit": true,
+		"noImplicitOverride": true,
+		"resolveJsonModule": true,
+		"rewriteRelativeImportExtensions": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"target": "esnext",
+		"useUnknownInCatchVariables": true,
+		"verbatimModuleSyntax": true
+	},
+	"exclude": ["node_modules", "test"],
+	"include": ["**/*.ts"]
+}
