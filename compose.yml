@@ -1,0 +1,31 @@
+services:
+  web:
+    build: .
+    depends_on:
+      - mongo
+    env_file: .env
+    environment:
+      DATABASE_URL: mongodb://root:password@mongo:27017/
+    ports:
+      - 8080:8080
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /app
+          initial_sync: true
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: package-lock.json
+  mongo:
+    image: mongo:8.2
+    command: --quiet
+    expose:
+      - 27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    restart: always
+    volumes:
+      - ./.data/mongo:/data/db

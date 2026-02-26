@@ -16,7 +16,7 @@ Create a Slack app:
   * Install your new app on a Slack workspace (we recommend a dedicated testing workspace)
   * Create an `.env` file in the root of this repo with Slack [configurations](#configurations)
 
-Start the server locally:
+Start the server locally (requires [Docker Compose](https://docs.docker.com/compose/)):
 
   * Run `npm run start:local`
 
@@ -25,6 +25,7 @@ Start the server locally:
 
 The following environment variables configure the app:
 
+  * **`DATABASE_URL`:** a MongoDB database connection string
   * **`LOG_LEVEL`:** the minimum level of log to output. Set to `fatal`, `error`, `warn`, `info`, or `debug` (default)
   * **`NODE_ENV`:** the mode to run the app in. Set to `production` or `development` (default)
   * **`PORT`:** the HTTP port to run on. Set to a port number (`8080` is default)

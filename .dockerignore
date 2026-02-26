@@ -3,6 +3,8 @@
 .github
 .gitignore
 .husky
+.data
+compose.yml
 Dockerfile
 README.md
 biome.json

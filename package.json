@@ -18,7 +18,7 @@
   "scripts": {
     "prepare": "husky || true",
     "start": "npm run start -w server",
-    "start:local": "npm run start:local -w server",
+    "start:local": "docker compose up --watch",
     "test": "npm run test:unit",
     "test:unit": "node --test --experimental-test-coverage --test-coverage-branches=100 --test-coverage-functions=100 --test-coverage-lines=100 test/unit/**/*.test.js",
     "verify": "npm run verify:biome && npm run verify:types",

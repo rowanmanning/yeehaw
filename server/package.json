@@ -4,12 +4,12 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "start": "node boot.ts",
-    "start:local": "node --watch --env-file-if-exists=../.env boot.ts"
+    "start": "node boot.ts"
   },
   "dependencies": {
     "@slack/bolt": "^4.6.0",
     "@yeehaw/boltify-logger": "*",
-    "@yeehaw/logger": "*"
+    "@yeehaw/logger": "*",
+    "mongoose": "^9.2.2"
   }
 }
