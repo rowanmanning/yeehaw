@@ -3,6 +3,7 @@ import { CodedError } from '@yeehaw/errors';
 import type { Logger } from '@yeehaw/logger';
 import { getConversationInfo, joinConversation } from '../../lib/conversation.ts';
 import { Channel } from '../../model/channel.ts';
+import { Race } from '../../model/race.ts';
 import { User } from '../../model/user.ts';
 
 interface Options {
@@ -91,10 +92,11 @@ export function addRaceShortcut({ app, logger }: Options) {
 				)
 			]);
 
-			// TODO run race
-			await client.chat.postMessage({
-				channel: channelId,
-				text: 'This will be a race one day'
+			await Race.start({
+				teamId: view.team_id,
+				channelId,
+				userId: body.user.id,
+				slack: client
 			});
 		} catch (cause) {
 			log.error({ event: 'VIEW_ERROR', error: cause });

@@ -3,6 +3,7 @@ import { CodedError } from '@yeehaw/errors';
 import type { Logger } from '@yeehaw/logger';
 import { getConversationInfo, joinConversation } from '../../lib/conversation.ts';
 import { Channel } from '../../model/channel.ts';
+import { Race } from '../../model/race.ts';
 import { User } from '../../model/user.ts';
 
 interface Options {
@@ -45,10 +46,11 @@ export function addRaceCommand({ app, logger }: Options) {
 				)
 			]);
 
-			// TODO run race
-			await client.chat.postMessage({
-				channel: command.channel_id,
-				text: 'This will be a race one day'
+			await Race.start({
+				teamId: command.team_id,
+				channelId: command.channel_id,
+				userId: command.user_id,
+				slack: client
 			});
 		} catch (cause) {
 			log.error({ event: 'COMMAND_ERROR', error: cause });
