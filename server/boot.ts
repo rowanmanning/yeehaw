@@ -11,7 +11,7 @@ config.verify(logger);
 await mongoose.connect(config.databaseUrl, { minPoolSize: 0 });
 
 const installPath = '/';
-const redirectPath = '/redirect';
+const redirectPath = '/slack/redirect';
 
 const app = new App({
 	clientId: config.slackClientId,

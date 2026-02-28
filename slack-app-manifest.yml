@@ -9,7 +9,7 @@ features:
     always_online: false
 oauth_config:
   redirect_urls:
-    - https://example.com/redirect
+    - https://example.com/slack/redirect
   scopes:
     bot:
       - channels:read
