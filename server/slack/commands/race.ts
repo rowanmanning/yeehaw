@@ -35,12 +35,12 @@ export function addRaceCommand({ app, logger }: Options) {
 			await Promise.all([
 				User.findOneAndUpdate(
 					{ _id: command.user_id },
-					{ _id: command.user_id, teamId: command.team_id },
+					{ _id: command.user_id, team: command.team_id },
 					{ upsert: true }
 				),
 				Channel.findOneAndUpdate(
 					{ _id: command.channel_id },
-					{ _id: command.channel_id, teamId: command.team_id },
+					{ _id: command.channel_id, team: command.team_id },
 					{ upsert: true }
 				)
 			]);

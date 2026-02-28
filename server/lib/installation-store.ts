@@ -15,7 +15,7 @@ export default function createInstallationStore(): InstallationStore {
 					await Team.create({ _id: installation.team.id });
 				}
 				await Installation.create({
-					teamId: installation.team.id,
+					team: installation.team.id,
 					slackInstallation: installation
 				});
 			} catch (cause) {
@@ -45,7 +45,7 @@ export default function createInstallationStore(): InstallationStore {
 					throw new Error('No team ID found in query');
 				}
 				await Installation.deleteMany({
-					teamId: query.teamId
+					team: query.teamId
 				});
 				// TODO delete all related stuff
 			} catch (cause) {

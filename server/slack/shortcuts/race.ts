@@ -81,12 +81,12 @@ export function addRaceShortcut({ app, logger }: Options) {
 			await Promise.all([
 				User.findOneAndUpdate(
 					{ _id: body.user.id },
-					{ _id: body.user.id, teamId: view.team_id },
+					{ _id: body.user.id, team: view.team_id },
 					{ upsert: true }
 				),
 				Channel.findOneAndUpdate(
 					{ _id: channelId },
-					{ _id: channelId, teamId: view.team_id },
+					{ _id: channelId, team: view.team_id },
 					{ upsert: true }
 				)
 			]);
