@@ -2,6 +2,8 @@ import type { App } from '@slack/bolt';
 import { CodedError } from '@yeehaw/errors';
 import type { Logger } from '@yeehaw/logger';
 import { getConversationInfo, joinConversation } from '../../lib/conversation.ts';
+import { Channel } from '../../model/channel.ts';
+import { User } from '../../model/user.ts';
 
 interface Options {
 	app: App;
@@ -75,6 +77,19 @@ export function addRaceShortcut({ app, logger }: Options) {
 			if (channel.id && !channel.is_member) {
 				await joinConversation(channel.id, client);
 			}
+
+			await Promise.all([
+				User.findOneAndUpdate(
+					{ _id: body.user.id },
+					{ _id: body.user.id, teamId: view.team_id },
+					{ upsert: true }
+				),
+				Channel.findOneAndUpdate(
+					{ _id: channelId },
+					{ _id: channelId, teamId: view.team_id },
+					{ upsert: true }
+				)
+			]);
 
 			// TODO run race
 			await client.chat.postMessage({
