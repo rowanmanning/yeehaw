@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const InstallationSchema = new mongoose.Schema(
 	{
-		team: { type: String, index: true, ref: 'Team' },
+		team: { type: String, index: true, required: true, ref: 'Team' },
 		slackInstallation: { type: Object }
 	},
 	{

@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const UserSchema = new mongoose.Schema(
 	{
 		_id: { type: String },
-		team: { type: String, index: true, ref: 'Team' }
+		team: { type: String, index: true, required: true, ref: 'Team' }
 	},
 	{
 		timestamps: true
