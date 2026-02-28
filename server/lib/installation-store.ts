@@ -20,7 +20,7 @@ export default function createInstallationStore(): InstallationStore {
 				});
 			} catch (cause) {
 				throw new CodedError('Failed to save installation data', {
-					code: 'INSTALLATION_STORE_FAILED',
+					code: 'INSTALLATION_STORE',
 					cause
 				});
 			}
@@ -34,7 +34,7 @@ export default function createInstallationStore(): InstallationStore {
 				return installation?.slackInstallation;
 			} catch (cause) {
 				throw new CodedError('Failed to fetch installation data', {
-					code: 'INSTALLATION_FETCH_FAILED',
+					code: 'INSTALLATION_FETCH',
 					cause
 				});
 			}
@@ -50,7 +50,7 @@ export default function createInstallationStore(): InstallationStore {
 				// TODO delete all related stuff
 			} catch (cause) {
 				throw new CodedError('Failed to delete installation data', {
-					code: 'INSTALLATION_DELETE_FAILED',
+					code: 'INSTALLATION_DELETE',
 					cause
 				});
 			}

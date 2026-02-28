@@ -7,11 +7,18 @@ features:
   bot_user:
     display_name: Yeehaw
     always_online: false
+  slash_commands:
+    - command: /race
+      url: https://example.com/slack/events
+      description: Start a race! Yeehaw!
+      should_escape: true
 oauth_config:
   redirect_urls:
     - https://example.com/slack/redirect
   scopes:
     bot:
+      - app_mentions:read
+      - channels:join
       - channels:read
       - chat:write
       - commands
@@ -19,6 +26,13 @@ oauth_config:
       - im:read
       - mpim:history
 settings:
+  event_subscriptions:
+    request_url: https://example.com/slack/events
+    bot_events:
+      - app_mention
+  interactivity:
+    is_enabled: true
+    request_url: https://example.com/slack/events
   org_deploy_enabled: false
   socket_mode_enabled: false
   token_rotation_enabled: false
