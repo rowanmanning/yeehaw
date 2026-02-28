@@ -3,6 +3,7 @@ services:
     build: .
     depends_on:
       - mongo
+    command: node --watch server/boot.ts
     env_file: .env
     environment:
       DATABASE_URL: mongodb://root:password@mongo:27017/
@@ -26,6 +27,8 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - 27017:27017
     restart: always
     volumes:
       - ./.data/mongo:/data/db

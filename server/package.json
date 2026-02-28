@@ -9,6 +9,7 @@
   "dependencies": {
     "@slack/bolt": "^4.6.0",
     "@yeehaw/boltify-logger": "*",
+    "@yeehaw/errors": "*",
     "@yeehaw/logger": "*",
     "mongoose": "^9.2.2"
   }
