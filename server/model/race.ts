@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto';
 import type { WebClient } from '@slack/web-api';
 import { CodedError } from '@yeehaw/errors';
 import mongoose from 'mongoose';
@@ -13,11 +14,12 @@ interface StartOptions {
 const racerCount = 5;
 
 const RaceRacerSchema = new mongoose.Schema({
-	racer: { type: mongoose.Types.ObjectId, index: true, required: true, ref: 'Racer' }
+	racer: { type: String, index: true, required: true, ref: 'Racer' }
 });
 
 const RaceSchema = new mongoose.Schema(
 	{
+		_id: { type: String, required: true, default: randomUUID },
 		team: { type: String, index: true, required: true, ref: 'Team' },
 		channel: { type: String, index: true, required: true, ref: 'Channel' },
 		user: { type: String, index: true, required: true, ref: 'User' },
@@ -50,9 +52,7 @@ const RaceSchema = new mongoose.Schema(
 					channel: channelId,
 					user: userId,
 					messageTimestamp: message.ts,
-					racers: racers.map((racer) => ({
-						racer: racer._id
-					}))
+					racers: racers.map((racer) => ({ racer: racer._id }))
 				});
 				// TODO kick off the race timers
 			}
