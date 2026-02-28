@@ -30,7 +30,7 @@ const RaceSchema = new mongoose.Schema(
 		timestamps: true,
 		statics: {
 			async start({ teamId, channelId, userId, slack }: StartOptions) {
-				const racers = await Racer.aggregate().sample(racerCount);
+				const racers = await Racer.aggregate().match({ team: teamId }).sample(racerCount);
 				if (racers.length < racerCount) {
 					throw new CodedError('Could not fetch enough racers', {
 						code: 'RACERS_MISSING'
@@ -39,7 +39,7 @@ const RaceSchema = new mongoose.Schema(
 
 				const { message } = await slack.chat.postMessage({
 					channel: channelId,
-					text: '[placeholder]'
+					text: `[placeholder]\n${racers.map((racer) => `${racer.emoji} ${racer.name}`).join('\n')}`
 				});
 				if (!message?.ts) {
 					throw new CodedError('Could not create a Slack message', {
