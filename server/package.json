@@ -12,6 +12,7 @@
     "@yeehaw/boltify-logger": "*",
     "@yeehaw/errors": "*",
     "@yeehaw/logger": "*",
+    "@yeehaw/racer-name": "*",
     "mongoose": "^9.2.2"
   }
 }

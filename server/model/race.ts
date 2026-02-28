@@ -1,6 +1,7 @@
 import type { WebClient } from '@slack/web-api';
 import { CodedError } from '@yeehaw/errors';
 import mongoose from 'mongoose';
+import { Racer } from './racer.ts';
 
 interface StartOptions {
 	teamId: string;
@@ -9,17 +10,31 @@ interface StartOptions {
 	slack: WebClient;
 }
 
+const racerCount = 5;
+
+const RaceRacerSchema = new mongoose.Schema({
+	racer: { type: mongoose.Types.ObjectId, index: true, required: true, ref: 'Racer' }
+});
+
 const RaceSchema = new mongoose.Schema(
 	{
 		team: { type: String, index: true, required: true, ref: 'Team' },
 		channel: { type: String, index: true, required: true, ref: 'Channel' },
 		user: { type: String, index: true, required: true, ref: 'User' },
-		messageTimestamp: { type: String, required: true }
+		messageTimestamp: { type: String, required: true },
+		racers: { type: [RaceRacerSchema], required: true, default: [] }
 	},
 	{
 		timestamps: true,
 		statics: {
 			async start({ teamId, channelId, userId, slack }: StartOptions) {
+				const racers = await Racer.aggregate().sample(racerCount);
+				if (racers.length < racerCount) {
+					throw new CodedError('Could not fetch enough racers', {
+						code: 'RACERS_MISSING'
+					});
+				}
+
 				const { message } = await slack.chat.postMessage({
 					channel: channelId,
 					text: '[placeholder]'
@@ -29,11 +44,15 @@ const RaceSchema = new mongoose.Schema(
 						code: 'SLACK_MESSAGE'
 					});
 				}
+
 				await this.create({
 					team: teamId,
 					channel: channelId,
 					user: userId,
-					messageTimestamp: message.ts
+					messageTimestamp: message.ts,
+					racers: racers.map((racer) => ({
+						racer: racer._id
+					}))
 				});
 				// TODO kick off the race timers
 			}
