@@ -2,9 +2,10 @@ import { App, type Logger } from '@slack/bolt';
 import boltifyLogger from '@yeehaw/boltify-logger';
 import createLogger from '@yeehaw/logger';
 import mongoose from 'mongoose';
-import { addRaceCommand } from './commands/race.ts';
 import * as config from './config.ts';
 import createInstallationStore from './lib/installation-store.ts';
+import { addRaceCommand } from './slack/commands/race.ts';
+import { addRaceShortcut } from './slack/shortcuts/race.ts';
 
 const logger = createLogger({ level: config.logLevel });
 config.verify(logger);
@@ -38,6 +39,7 @@ const app = new App({
 });
 
 addRaceCommand({ app, logger });
+addRaceShortcut({ app, logger });
 
 await app.start(config.port);
 logger.info('Application started');

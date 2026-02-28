@@ -1,7 +1,7 @@
 import type { App } from '@slack/bolt';
-import type { WebClient } from '@slack/web-api';
 import { CodedError } from '@yeehaw/errors';
 import type { Logger } from '@yeehaw/logger';
+import { getConversationInfo, joinConversation } from '../../lib/conversation.ts';
 
 interface Options {
 	app: App;
@@ -9,6 +9,7 @@ interface Options {
 }
 
 export function addRaceCommand({ app, logger }: Options) {
+	// Handle the race slash command
 	app.command('/race', async ({ ack, client, command, respond }) => {
 		const log = logger.child({ command: 'race', triggerId: command.trigger_id });
 		try {
@@ -25,8 +26,8 @@ export function addRaceCommand({ app, logger }: Options) {
 			if (channel.is_im) {
 				throw new CodedError('Unable to race in DM', { code: 'CONVERSATION_TYPE' });
 			}
-			if (!channel.is_member) {
-				await joinConversation(command.channel_id, client);
+			if (channel.id && !channel.is_member) {
+				await joinConversation(channel.id, client);
 			}
 
 			// TODO run race
@@ -53,35 +54,4 @@ export function addRaceCommand({ app, logger }: Options) {
 			throw cause;
 		}
 	});
-}
-
-async function getConversationInfo(conversationId: string, client: WebClient) {
-	try {
-		const { channel } = await client.conversations.info({ channel: conversationId });
-		if (!channel?.id) {
-			throw new CodedError('Conversation has no channel ID', {
-				code: 'CONVERSATION_INFO_CHANNEL_ID'
-			});
-		}
-		return channel;
-	} catch (cause) {
-		if (cause instanceof CodedError) {
-			throw cause;
-		}
-		throw new CodedError('Conversation info could not be found', {
-			code: 'CONVERSATION_INFO_NOT_FOUND',
-			cause
-		});
-	}
-}
-
-async function joinConversation(conversationId: string, client: WebClient) {
-	try {
-		await client.conversations.join({ channel: conversationId });
-	} catch (cause) {
-		throw new CodedError('Failed to join the conversation', {
-			code: 'CONVERSATION_JOIN',
-			cause
-		});
-	}
 }

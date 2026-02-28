@@ -7,6 +7,11 @@ features:
   bot_user:
     display_name: Yeehaw
     always_online: false
+  shortcuts:
+    - name: Start a race
+      type: global
+      callback_id: race
+      description: Start a race! Yeehaw!
   slash_commands:
     - command: /race
       url: https://example.com/slack/events
