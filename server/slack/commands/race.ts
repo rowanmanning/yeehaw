@@ -11,7 +11,7 @@ interface Options {
 	logger: Logger;
 }
 
-export function addRaceCommand({ app, logger }: Options) {
+export function initialiseRaceCommand({ app, logger }: Options) {
 	// Handle the race slash command
 	app.command('/race', async ({ ack, client, command, respond }) => {
 		const log = logger.child({ command: 'race', triggerId: command.trigger_id });

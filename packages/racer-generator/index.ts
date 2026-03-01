@@ -11,6 +11,6 @@ export function randomEmoji() {
 	return randomItem(emoji);
 }
 
-export function randomAdjectiveNounName() {
+function randomAdjectiveNounName() {
 	return adjectives;
 }

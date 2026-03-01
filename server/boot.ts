@@ -4,8 +4,9 @@ import createLogger from '@yeehaw/logger';
 import mongoose from 'mongoose';
 import * as config from './config.ts';
 import createInstallationStore from './lib/installation-store.ts';
-import { addRaceCommand } from './slack/commands/race.ts';
-import { addRaceShortcut } from './slack/shortcuts/race.ts';
+import { initialiseRaceCommand } from './slack/commands/race.ts';
+import { initialiseAddRacerShortcut } from './slack/shortcuts/add-racer.ts';
+import { initialiseRaceShortcut } from './slack/shortcuts/race.ts';
 
 const logger = createLogger({ level: config.logLevel });
 config.verify(logger);
@@ -38,8 +39,9 @@ const app = new App({
 	stateSecret: config.slackStateSecret
 });
 
-addRaceCommand({ app, logger });
-addRaceShortcut({ app, logger });
+initialiseRaceCommand({ app, logger });
+initialiseRaceShortcut({ app, logger });
+initialiseAddRacerShortcut({ app, logger });
 
 await app.start(config.port);
 logger.info('Application started');

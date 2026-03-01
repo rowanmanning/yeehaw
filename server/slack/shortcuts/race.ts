@@ -11,7 +11,7 @@ interface Options {
 	logger: Logger;
 }
 
-export function addRaceShortcut({ app, logger }: Options) {
+export function initialiseRaceShortcut({ app, logger }: Options) {
 	// Handle the race shortcut
 	app.shortcut('race', async ({ ack, client, shortcut }) => {
 		const log = logger.child({ shortcut: 'race', triggerId: shortcut.trigger_id });
@@ -26,7 +26,7 @@ export function addRaceShortcut({ app, logger }: Options) {
 				trigger_id: shortcut.trigger_id,
 				view: {
 					type: 'modal',
-					callback_id: 'startRaceInChannel',
+					callback_id: 'submit_race',
 					clear_on_close: true,
 					title: { type: 'plain_text', text: 'Set up your race' },
 					submit: { type: 'plain_text', text: 'Start the race!' },
@@ -54,12 +54,12 @@ export function addRaceShortcut({ app, logger }: Options) {
 		}
 	});
 
-	// Handle the race modal being completed
-	app.view('startRaceInChannel', async ({ ack, body, client, view }) => {
-		const log = logger.child({ view: 'startRaceInChannel', hash: view.hash });
+	// Handle the race modal being submitted
+	app.view('submit_race', async ({ ack, body, client, view }) => {
+		const log = logger.child({ view: 'submit_race', hash: view.hash });
 		try {
 			await ack();
-			const channelId = view?.state?.values?.channel?.select?.selected_channel;
+			const channelId = view.state.values.channel.select.selected_channel;
 			log.info({
 				event: 'VIEW_RUN',
 				channel: { id: channelId },

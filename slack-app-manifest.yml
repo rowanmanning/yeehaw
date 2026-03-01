@@ -8,6 +8,10 @@ features:
     display_name: Yeehaw
     always_online: false
   shortcuts:
+    - name: Add a new racer
+      type: global
+      callback_id: add_racer
+      description: Add a new majestic steed to race with
     - name: Start a race
       type: global
       callback_id: race

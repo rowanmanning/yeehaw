@@ -95,7 +95,6 @@ const nouns = [
 	'Celebrant',
 	'Celebrator',
 	'Celestial',
-	'Center of attention',
 	'CEO',
 	'CFO',
 	'Chair',
